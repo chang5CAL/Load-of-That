@@ -46,18 +46,7 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(38);
-
-	var Hello = React.createClass({
-	    displayName: 'Hello',
-
-	    render: function () {
-	        return React.createElement(
-	            'h1',
-	            null,
-	            'Hello, React!'
-	        );
-	    }
-	});
+	var Hello = __webpack_require__(168);
 
 	ReactDOM.render(React.createElement(Hello, null), document.getElementById('container'));
 
@@ -20353,6 +20342,43 @@
 	var ReactMount = __webpack_require__(160);
 
 	module.exports = ReactMount.renderSubtreeIntoContainer;
+
+/***/ },
+/* 168 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {var React = __webpack_require__(1);
+
+	var Hello = React.createClass({
+	    displayName: 'Hello',
+
+	    render: function () {
+	        return React.createElement(
+	            'h1',
+	            null,
+	            'Hello, React!'
+	        );
+	    }
+	});
+
+	module.export = Hello;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(169)(module)))
+
+/***/ },
+/* 169 */
+/***/ function(module, exports) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
 
 /***/ }
 /******/ ]);
