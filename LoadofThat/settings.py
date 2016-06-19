@@ -10,10 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
+from django.conf import settings
+import logging
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FACEBOOK_APP_ID = getattr(settings, 'FACEBOOK_APP_ID', 'test')
+FACEBOOK_APP_SECRET = getattr(settings, 'FACEBOOK_APP_SECRET', 'test')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
+    'django_facebook',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,6 +59,14 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'LoadOfThat.urls'
 
+
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -64,6 +78,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_facebook.context_processors.facebook',
+                # and add request if you didn't do so already
+                'django.core.context_processors.request',
             ],
         },
     },
