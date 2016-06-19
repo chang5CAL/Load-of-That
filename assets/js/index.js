@@ -1,5 +1,5 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
-var Hello = require('./components/Hello.jsx')
+var Container = require('./components/Container.jsx')
 
-ReactDOM.render(<Hello />, document.getElementById('container'))
+ReactDOM.render(<Container />, document.getElementById('container')) 
