@@ -4,9 +4,13 @@ var SearchForm = React.createClass ({
     render: function() {
         return (
         	<div className="load-search-form">
-	            <h1>
-	            Search Form
-	            </h1>
+	            <form>
+	            	Location: <input type="text" />
+	            	<br />
+	            	Type:     <input type="text" />
+	            	<br />
+	            	<button>Submit</button>
+	            </form>
 	        </div>
         )
     }

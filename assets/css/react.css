@@ -60,7 +60,17 @@ LEFT COLUMN CSS
 .load-left-col {
 	float: left;
 	height: 700px;
-	width: 600px;
-	overflow: auto;
+	width:650px;
+	overflow: scroll;
+	overflow-x: hidden;
 }
 
+/*
+
+ACTIVITY
+
+*/
+
+.load-activity {
+	background-color: red;
+}

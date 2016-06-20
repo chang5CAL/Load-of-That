@@ -4,7 +4,7 @@ var Activity = require('./Activity')
 var Activities = React.createClass ({
     render: function() {
         return (
-        	<div className="load-activties">
+        	<div className="load-activities">
 	            <h1>
 	            Activities
 	            </h1>

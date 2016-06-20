@@ -3,7 +3,7 @@ var React = require('react');
 var Activity = React.createClass ({
     render: function() {
         return (
-        	<div className="load-activties">
+        	<div className="load-activity">
 	            <h1>
 	            Activity
 	            </h1>
