@@ -2,18 +2,25 @@ var React = require('react');
 var Activity = require('./Activity')
 
 var Activities = React.createClass ({
+	propTypes: {
+		//events: React.PropTypes.array.isRequired,
+	},
+
+	getDefaultProps: function() {
+		return {
+			events: []
+		}
+	},
     render: function() {
+    	var listEvents = this.props.events.map(function(event) {
+        	return <Activity title={event.title} url={event.url} image={event.image} />;
+        });
         return (
         	<div className="load-activities">
 	            <h1>
 	            Activities
 	            </h1>
-	            <Activity title="hello1" />
-	            <Activity title="hello2"/>
-	            <Activity title="hello3"/>
-	            <Activity title="hello4"/>
-	            <Activity title="hello5"/>
-	            <Activity title="hello6"/>
+	            {listEvents}
 	        </div>
         )
     }

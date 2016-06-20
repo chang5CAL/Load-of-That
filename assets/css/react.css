@@ -91,21 +91,30 @@ ACTIVITY
 
 */
 
+/*
+	CSS for events container
+*/
 .load-activity {
 	height: 300px;
 	background-color: green;
+	margin: 10px, 5px, 5px, 5px;
 	margin-left: 5px;
 	margin-bottom: 5px;
 	margin-right: 5px;
 }
 
-.load-activity > .activity-image {
+/*
+	Allows images to wrap, around text
+*/
+.load-activity > .activity-image-container {
 	float: left;
 	margin: 5px 15px 15px 5px;
-	/*vertical-align: middle;*/
 }
 
-.load-activity > .activity-content-body {
-	/*vertical-align: middle;
-	display: inline;*/
+/*
+	Sets limit for images to prevent over floating of images 
+*/
+.load-activity > .activity-image-container > .activity-image {
+	min-height: 200px;
+	max-height: 250px;
 }
