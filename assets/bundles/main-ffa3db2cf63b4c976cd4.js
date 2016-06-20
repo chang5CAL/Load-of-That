@@ -20355,19 +20355,213 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(2);
-	var Header = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/Header\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	var LeftCol = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/LeftCol\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	var RightCol = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/RightCol\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var Header = __webpack_require__(170);
+	var LeftCol = __webpack_require__(171);
+	var RightCol = __webpack_require__(175);
 
 	var Container = React.createClass({
 	    displayName: 'Container',
 
 	    render: function () {
-	        return React.createElement(Header, null);
+	        return React.createElement(
+	            'div',
+	            { className: 'load-container' },
+	            React.createElement(Header, null),
+	            React.createElement(LeftCol, null),
+	            React.createElement(RightCol, null)
+	        );
 	    }
 	});
 
 	module.exports = Container;
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+
+	var Header = React.createClass({
+					displayName: "Header",
+
+					render: function () {
+									return React.createElement(
+													"div",
+													{ className: "load-header" },
+													React.createElement("img", { src: "http://www.edwardsengineering.com/wp-content/uploads/2014/01/random-logo-e1390919001831.png" }),
+													React.createElement("input", { type: "text" }),
+													React.createElement(
+																	"h2",
+																	null,
+																	"Search Bar"
+													),
+													React.createElement(
+																	"div",
+																	{ className: "load-navigation" },
+																	React.createElement(
+																					"ul",
+																					null,
+																					React.createElement(
+																									"li",
+																									null,
+																									"home"
+																					),
+																					React.createElement(
+																									"li",
+																									null,
+																									"About"
+																					),
+																					React.createElement(
+																									"li",
+																									null,
+																									"Contact Us"
+																					)
+																	)
+													)
+									);
+					}
+	});
+
+	module.exports = Header;
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var SearchForm = __webpack_require__(172);
+	var Activities = __webpack_require__(173);
+
+	var style = {
+					//float: 'left'
+	};
+
+	var LeftCol = React.createClass({
+					displayName: 'LeftCol',
+
+					render: function () {
+									return React.createElement(
+													'div',
+													{ className: 'load-left-col', style: style },
+													React.createElement(
+																	'h1',
+																	null,
+																	'LeftCol'
+													),
+													React.createElement(
+																	'div',
+																	null,
+																	React.createElement(SearchForm, null),
+																	React.createElement(Activities, null)
+													)
+									);
+					}
+	});
+
+	module.exports = LeftCol;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+
+	var SearchForm = React.createClass({
+	    displayName: "SearchForm",
+
+	    render: function () {
+	        return React.createElement(
+	            "div",
+	            { className: "load-search-form" },
+	            React.createElement(
+	                "h1",
+	                null,
+	                "Search Form"
+	            )
+	        );
+	    }
+	});
+
+	module.exports = SearchForm;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var Activity = __webpack_require__(174);
+
+	var Activities = React.createClass({
+	    displayName: 'Activities',
+
+	    render: function () {
+	        return React.createElement(
+	            'div',
+	            { className: 'load-activties' },
+	            React.createElement(
+	                'h1',
+	                null,
+	                'Activities'
+	            ),
+	            React.createElement(Activity, null)
+	        );
+	    }
+	});
+
+	module.exports = Activities;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+
+	var Activity = React.createClass({
+	    displayName: "Activity",
+
+	    render: function () {
+	        return React.createElement(
+	            "div",
+	            { className: "load-activties" },
+	            React.createElement(
+	                "h1",
+	                null,
+	                "Activity"
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Activity;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+
+	var style = {
+					//"float": 'left'
+	};
+
+	var RightCol = React.createClass({
+					displayName: "RightCol",
+
+					render: function () {
+									return React.createElement(
+													"div",
+													{ className: "load-right-col", style: style },
+													React.createElement(
+																	"h1",
+																	null,
+																	"RightCol"
+													),
+													"Calendar"
+									);
+					}
+	});
+
+	module.exports = RightCol;
 
 /***/ }
 /******/ ]);

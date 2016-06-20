@@ -1,7 +1,9 @@
 {% load render_bundle from webpack_loader %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
     <head>
+    	<link rel="stylesheet" type="text/css" href="{% static "css/react.css" %}">
         <title>Hello React</title>
     </head>
     <body>

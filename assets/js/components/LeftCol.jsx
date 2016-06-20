@@ -9,7 +9,7 @@ var style = {
 var LeftCol = React.createClass ({
     render: function() {
         return (
-        	<div class="load-left-col" style={style}>
+        	<div className="load-left-col" style={style}>
 	            <h1>
 	            LeftCol
 	            </h1>

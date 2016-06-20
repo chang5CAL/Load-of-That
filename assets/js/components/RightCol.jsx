@@ -7,7 +7,7 @@ var style = {
 var RightCol = React.createClass ({
     render: function() {
         return (
-        	<div class="load-right-col" style={style}>
+        	<div className="load-right-col" style={style}>
 	            <h1>
 	            RightCol
 	            </h1>

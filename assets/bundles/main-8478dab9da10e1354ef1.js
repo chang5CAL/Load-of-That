@@ -20359,27 +20359,18 @@
 	var LeftCol = __webpack_require__(171);
 	var RightCol = __webpack_require__(175);
 
-	var style = {
-		backgroundColor: "#ddd6f3"
-	};
-
 	var Container = React.createClass({
-		displayName: 'Container',
+	    displayName: 'Container',
 
-		render: function () {
-			return React.createElement(
-				'div',
-				{ 'class': 'load-container', style: style },
-				React.createElement(
-					'h1',
-					null,
-					'Container'
-				),
-				React.createElement(Header, null),
-				React.createElement(LeftCol, null),
-				React.createElement(RightCol, null)
-			);
-		}
+	    render: function () {
+	        return React.createElement(
+	            'div',
+	            { className: 'load-container' },
+	            React.createElement(Header, null),
+	            React.createElement(LeftCol, null),
+	            React.createElement(RightCol, null)
+	        );
+	    }
 	});
 
 	module.exports = Container;
@@ -20391,44 +20382,55 @@
 	var React = __webpack_require__(2);
 
 	var Header = React.createClass({
-	    displayName: "Header",
+					displayName: "Header",
 
-	    render: function () {
-	        return React.createElement(
-	            "div",
-	            { "class": "load-header" },
-	            React.createElement("img", { src: "http://www.edwardsengineering.com/wp-content/uploads/2014/01/random-logo-e1390919001831.png" }),
-	            React.createElement(
-	                "h1",
-	                null,
-	                "Header"
-	            ),
-	            React.createElement(
-	                "h2",
-	                null,
-	                "Search Bar"
-	            ),
-	            React.createElement(
-	                "div",
-	                { "class": "load-navigation" },
-	                React.createElement(
-	                    "h2",
-	                    null,
-	                    "Home"
-	                ),
-	                React.createElement(
-	                    "h2",
-	                    null,
-	                    "About"
-	                ),
-	                React.createElement(
-	                    "h2",
-	                    null,
-	                    "Contact Us"
-	                )
-	            )
-	        );
-	    }
+					render: function () {
+									return React.createElement(
+													"div",
+													{ className: "load-header" },
+													React.createElement(
+																	"div",
+																	{ className: "load-header-search" },
+																	React.createElement("img", { src: "http://www.edwardsengineering.com/wp-content/uploads/2014/01/random-logo-e1390919001831.png" }),
+																	React.createElement("input", { type: "text" })
+													),
+													React.createElement(
+																	"div",
+																	{ className: "load-navigation" },
+																	React.createElement(
+																					"ul",
+																					null,
+																					React.createElement(
+																									"li",
+																									null,
+																									React.createElement(
+																													"a",
+																													{ href: "#test" },
+																													"Home"
+																									)
+																					),
+																					React.createElement(
+																									"li",
+																									null,
+																									React.createElement(
+																													"a",
+																													{ href: "#test" },
+																													"About"
+																									)
+																					),
+																					React.createElement(
+																									"li",
+																									null,
+																									React.createElement(
+																													"a",
+																													{ href: "#test" },
+																													"Contact Us"
+																									)
+																					)
+																	)
+													)
+									);
+					}
 	});
 
 	module.exports = Header;
@@ -20442,7 +20444,7 @@
 	var Activities = __webpack_require__(173);
 
 	var style = {
-					float: 'left'
+					//float: 'left'
 	};
 
 	var LeftCol = React.createClass({
@@ -20451,7 +20453,7 @@
 					render: function () {
 									return React.createElement(
 													'div',
-													{ 'class': 'load-left-col', style: style },
+													{ className: 'load-left-col', style: style },
 													React.createElement(
 																	'h1',
 																	null,
@@ -20481,7 +20483,7 @@
 	    render: function () {
 	        return React.createElement(
 	            "div",
-	            { "class": "load-search-form" },
+	            { className: "load-search-form" },
 	            React.createElement(
 	                "h1",
 	                null,
@@ -20501,20 +20503,28 @@
 	var Activity = __webpack_require__(174);
 
 	var Activities = React.createClass({
-	    displayName: 'Activities',
+					displayName: 'Activities',
 
-	    render: function () {
-	        return React.createElement(
-	            'div',
-	            { 'class': 'load-activties' },
-	            React.createElement(
-	                'h1',
-	                null,
-	                'Activities'
-	            ),
-	            React.createElement(Activity, null)
-	        );
-	    }
+					render: function () {
+									return React.createElement(
+													'div',
+													{ className: 'load-activties' },
+													React.createElement(
+																	'h1',
+																	null,
+																	'Activities'
+													),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null),
+													React.createElement(Activity, null)
+									);
+					}
 	});
 
 	module.exports = Activities;
@@ -20531,7 +20541,7 @@
 	    render: function () {
 	        return React.createElement(
 	            "div",
-	            { "class": "load-activties" },
+	            { className: "load-activties" },
 	            React.createElement(
 	                "h1",
 	                null,
@@ -20550,22 +20560,22 @@
 	var React = __webpack_require__(2);
 
 	var style = {
-					"float": 'left'
+					//"float": 'left'
 	};
 
 	var RightCol = React.createClass({
-					displayName: 'RightCol',
+					displayName: "RightCol",
 
 					render: function () {
 									return React.createElement(
-													'div',
-													{ 'class': 'load-right-col', style: style },
+													"div",
+													{ className: "load-right-col", style: style },
 													React.createElement(
-																	'h1',
+																	"h1",
 																	null,
-																	'RightCol'
+																	"RightCol"
 													),
-													'Calendar'
+													"Calendar"
 									);
 					}
 	});
