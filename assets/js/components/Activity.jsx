@@ -2,9 +2,12 @@ var React = require('react');
 
 var Activity = React.createClass ({
 	propTypes: {
+		//key: React.PropTypes.number.isRequired,
+		id: React.PropTypes.number.isRequired,
 		title: React.PropTypes.string.isRequired,
 		url: React.PropTypes.string.isRequired,
 		image: React.PropTypes.string.isRequired,
+		remove: React.PropTypes.func.isRequired,
 	},
 
     render: function() {
@@ -17,6 +20,7 @@ var Activity = React.createClass ({
 		            <button className="activity-url">Add to Calendar </button>
 		            <p className="activity-date">Date</p>
 		            <p className="activity-location">Location</p>
+		            <button onClick={this.props.remove.bind(null, this.props.id)}>X</button>
 	            </div>
 	        </div>
         )

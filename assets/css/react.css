@@ -36,6 +36,10 @@ NAVIGATION BAR
 	margin-left: 20px;
 }
 
+
+/*
+	CSS to give the look of the navagtion menu bars
+*/
 .load-navigation > ul {
 	list-style-type: none;
     margin: 20px;

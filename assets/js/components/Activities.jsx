@@ -3,18 +3,24 @@ var Activity = require('./Activity')
 
 var Activities = React.createClass ({
 	propTypes: {
-		//events: React.PropTypes.array.isRequired,
+		events: React.PropTypes.array.isRequired,
+		remove: React.PropTypes.func.isRequired,
 	},
 
 	getDefaultProps: function() {
 		return {
-			events: []
+			events: [],
 		}
 	},
     render: function() {
     	var listEvents = this.props.events.map(function(event) {
-        	return <Activity title={event.title} url={event.url} image={event.image} />;
-        });
+        	return <Activity key={event.id} 
+        					 id={event.id}
+        					 title={event.title} 
+        					 url={event.url} 
+        					 image={event.image}
+        					 remove={this.props.remove} />;
+        }.bind(this));
         return (
         	<div className="load-activities">
 	            <h1>
@@ -22,7 +28,7 @@ var Activities = React.createClass ({
 	            </h1>
 	            {listEvents}
 	        </div>
-        )
+        );
     }
 });
 

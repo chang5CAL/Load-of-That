@@ -20443,25 +20443,37 @@
 	var SearchForm = __webpack_require__(172);
 	var Activities = __webpack_require__(173);
 
-	var style = {
-					//float: 'left'
-	};
-
 	var LeftCol = React.createClass({
-					displayName: 'LeftCol',
+		displayName: 'LeftCol',
 
-					render: function () {
-									return React.createElement(
-													'div',
-													{ className: 'load-left-col', style: style },
-													React.createElement(
-																	'div',
-																	null,
-																	React.createElement(SearchForm, null),
-																	React.createElement(Activities, null)
-													)
-									);
-					}
+		getInitialState: function () {
+			return {
+				// TODO change from list to a dictionary of key: object
+				events: [{ id: 1, title: "Gameworks", url: "http://gameworks.com", image: "http://www.newportonthelevee.com/Portals/newportonthelevee/Images/Directory/Gameworks.png" }, { id: 2, title: "Dave and Busters", url: "http://www.daveandbusters.com/", image: "http://www.daveandbusters.com/media/1023/logo_no_shadow.png" }, { id: 3, title: "Disney Land", url: "https://disneyland.disney.go.com/", image: "https://s-media-cache-ak0.pinimg.com/236x/e0/71/0d/e0710d8c6cf4c5b707fd55375e9c740c.jpg" }]
+			};
+		},
+		remove: function (eventId, e) {
+			//e.preventDefault();
+			console.log(eventId);
+			var newEvents = this.state.events.filter(function (event) {
+				return event.id !== eventId;
+			});
+			this.setState({
+				events: newEvents
+			});
+		},
+		render: function () {
+			return React.createElement(
+				'div',
+				{ className: 'load-left-col' },
+				React.createElement(
+					'div',
+					null,
+					React.createElement(SearchForm, null),
+					React.createElement(Activities, { events: this.state.events, remove: this.remove })
+				)
+			);
+		}
 	});
 
 	module.exports = LeftCol;
@@ -20512,28 +20524,38 @@
 	var Activity = __webpack_require__(174);
 
 	var Activities = React.createClass({
-					displayName: 'Activities',
+		displayName: 'Activities',
 
-					render: function () {
-									return React.createElement(
-													'div',
-													{ className: 'load-activities' },
-													React.createElement(
-																	'h1',
-																	null,
-																	'Activities'
-													),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null),
-													React.createElement(Activity, null)
-									);
-					}
+		propTypes: {
+			events: React.PropTypes.array.isRequired,
+			remove: React.PropTypes.func.isRequired
+		},
+
+		getDefaultProps: function () {
+			return {
+				events: []
+			};
+		},
+		render: function () {
+			var listEvents = this.props.events.map(function (event) {
+				return React.createElement(Activity, { key: event.id,
+					id: event.id,
+					title: event.title,
+					url: event.url,
+					image: event.image,
+					remove: this.props.remove });
+			}.bind(this));
+			return React.createElement(
+				'div',
+				{ className: 'load-activities' },
+				React.createElement(
+					'h1',
+					null,
+					'Activities'
+				),
+				listEvents
+			);
+		}
 	});
 
 	module.exports = Activities;
@@ -20545,21 +20567,66 @@
 	var React = __webpack_require__(2);
 
 	var Activity = React.createClass({
-	    displayName: "Activity",
+		displayName: "Activity",
 
-	    render: function () {
-	        return React.createElement(
-	            "div",
-	            { className: "load-activity" },
-	            React.createElement("img", { className: "activity-image", src: "https://pbs.twimg.com/profile_images/606867814025162752/Q3_J5qKH.jpg" }),
-	            "This is a title",
-	            React.createElement(
-	                "p",
-	                null,
-	                "This is the article body that will show you how great the event will be"
-	            )
-	        );
-	    }
+		propTypes: {
+			//key: React.PropTypes.number.isRequired,
+			id: React.PropTypes.number.isRequired,
+			title: React.PropTypes.string.isRequired,
+			url: React.PropTypes.string.isRequired,
+			image: React.PropTypes.string.isRequired,
+			remove: React.PropTypes.func.isRequired
+		},
+
+		render: function () {
+			return React.createElement(
+				"div",
+				{ className: "load-activity" },
+				React.createElement(
+					"div",
+					{ className: "activity-image-container" },
+					React.createElement("img", { className: "activity-image", src: this.props.image })
+				),
+				React.createElement(
+					"div",
+					{ className: "activity-content-body" },
+					React.createElement(
+						"div",
+						{ className: "activity-title" },
+						React.createElement(
+							"a",
+							{ href: this.props.url },
+							this.props.title
+						)
+					),
+					React.createElement(
+						"p",
+						{ className: "activity-body" },
+						"This is the article body that will show you how great the event will be"
+					),
+					React.createElement(
+						"button",
+						{ className: "activity-url" },
+						"Add to Calendar "
+					),
+					React.createElement(
+						"p",
+						{ className: "activity-date" },
+						"Date"
+					),
+					React.createElement(
+						"p",
+						{ className: "activity-location" },
+						"Location"
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.props.remove.bind(null, this.props.id) },
+						"X"
+					)
+				)
+			);
+		}
 	});
 
 	module.exports = Activity;
