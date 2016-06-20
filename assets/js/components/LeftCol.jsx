@@ -13,7 +13,7 @@ var LeftCol = React.createClass ({
 					]
 		};
 	},
-	remove: function(e, eventId) {
+	remove: function(eventId) {
 		//e.preventDefault();
 		console.log(eventId);
 		var newEvents = this.state.events.filter(function(event) {
