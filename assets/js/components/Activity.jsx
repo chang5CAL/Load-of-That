@@ -2,7 +2,6 @@ var React = require('react');
 
 var Activity = React.createClass ({
 	propTypes: {
-		//key: React.PropTypes.number.isRequired,
 		id: React.PropTypes.number.isRequired,
 		title: React.PropTypes.string.isRequired,
 		url: React.PropTypes.string.isRequired,

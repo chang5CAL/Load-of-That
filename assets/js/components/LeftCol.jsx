@@ -13,7 +13,7 @@ var LeftCol = React.createClass ({
 					]
 		};
 	},
-	remove: function(eventId, e) {
+	remove: function(e, eventId) {
 		//e.preventDefault();
 		console.log(eventId);
 		var newEvents = this.state.events.filter(function(event) {
@@ -23,11 +23,21 @@ var LeftCol = React.createClass ({
 			events: newEvents, 
 		});
 	},
+	newQuery: function(location, type) {
+		var newEvents = [
+						 {id: 4, title: "Tokyo", url:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png", image:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png"}, 
+						 {id: 5, title: "United States", url: "https://www.usa.gov/about-the-us", image: "http://i.infopls.com/images/states_imgmap.gif"}, 
+						 {id: 6, title: "Spain", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
+					   ];
+		this.setState({
+			events: newEvents,
+		});
+	},
     render: function() {
         return (
         	<div className="load-left-col">
 	            <div>
-	            	<SearchForm />
+	            	<SearchForm newQuery={this.newQuery} />
 	            	<Activities events={this.state.events} remove={this.remove} />
 	            </div>
 	        </div>
