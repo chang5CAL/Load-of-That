@@ -8,15 +8,12 @@ var Activities = React.createClass ({
 	            <h1>
 	            Activities
 	            </h1>
-	            <Activity />
-	            <Activity />
-	            <Activity />
-	            <Activity />
-	            <Activity />
-	            <Activity />
-	            <Activity />
-	            <Activity />
-	            <Activity />
+	            <Activity title="hello1" />
+	            <Activity title="hello2"/>
+	            <Activity title="hello3"/>
+	            <Activity title="hello4"/>
+	            <Activity title="hello5"/>
+	            <Activity title="hello6"/>
 	        </div>
         )
     }
