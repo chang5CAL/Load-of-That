@@ -16,8 +16,12 @@ import logging
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FACEBOOK_APP_ID = getattr(settings, 'FACEBOOK_APP_ID', 'test')
-FACEBOOK_APP_SECRET = getattr(settings, 'FACEBOOK_APP_SECRET', 'test')
+FACEBOOK_APP_ID = getattr(settings,
+                          EAACEdEose0cBAA8JoFEniJYzVdcUZBNTC3V5bJjqiuuMxwgJO3Mu7g5SQfrZB61PADn8wkSZCnINB1cIMC40skwBCITncP1gXhSZBAArnYCk0lRJ4iWlts3aDYeJ2bnG5ZApCcN2l0EEhPPnEk9r8wg1pTblkCXjk52V1zGGZAjQZDZD,
+                          'test')
+FACEBOOK_APP_SECRET = getattr(settings,
+                              EAACEdEose0cBAA8JoFEniJYzVdcUZBNTC3V5bJjqiuuMxwgJO3Mu7g5SQfrZB61PADn8wkSZCnINB1cIMC40skwBCITncP1gXhSZBAArnYCk0lRJ4iWlts3aDYeJ2bnG5ZApCcN2l0EEhPPnEk9r8wg1pTblkCXjk52V1zGGZAjQZDZD
+                              , 'test')
 
 
 
