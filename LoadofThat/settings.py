@@ -23,7 +23,17 @@ FACEBOOK_APP_SECRET = getattr(settings,
                               EAACEdEose0cBAA8JoFEniJYzVdcUZBNTC3V5bJjqiuuMxwgJO3Mu7g5SQfrZB61PADn8wkSZCnINB1cIMC40skwBCITncP1gXhSZBAArnYCk0lRJ4iWlts3aDYeJ2bnG5ZApCcN2l0EEhPPnEk9r8wg1pTblkCXjk52V1zGGZAjQZDZD
                               , 'test')
 
+THIRD_PARTY_APPS = [
+        "meetup"
+    ]
 
+MEETUP_KEY = "4f91da6734717a595a1a1d6e4d714b"
+#MEETUP_GROUP_ID = 123456789
+#For now, we don't have a default group to search. We might never have one?
+#MEETUP_ALLOW_ADMIN = True
+#Again, probably unneccessary
+#TIME_ZONE = "UTC"
+#See above comment
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
