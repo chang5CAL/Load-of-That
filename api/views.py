@@ -10,5 +10,5 @@ def index(request):
     elif request.method == "GET":
     	print("get")
     #print (request.GET['code'])
-    print(token)
+    print(token[0])
     return render(request, 'api/test.html')

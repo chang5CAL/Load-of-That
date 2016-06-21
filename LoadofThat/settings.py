@@ -10,11 +10,24 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
+from django.conf import settings
+import logging
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+THIRD_PARTY_APPS = [
+        "meetup"
+    ]
+
+MEETUP_KEY = "4f91da6734717a595a1a1d6e4d714b"
+#MEETUP_GROUP_ID = 123456789
+#For now, we don't have a default group to search. We might never have one?
+#MEETUP_ALLOW_ADMIN = True
+#Again, probably unneccessary
+#TIME_ZONE = "UTC"
+#See above comment
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -45,7 +58,6 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
-
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,6 +73,14 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'LoadOfThat.urls'
 
+
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -72,6 +92,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_facebook.context_processors.facebook',
+                # and add request if you didn't do so already
+                'django.core.context_processors.request',
             ],
         },
     },
