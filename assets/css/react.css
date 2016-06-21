@@ -122,3 +122,12 @@ ACTIVITY
 	min-height: 200px;
 	max-height: 250px;
 }
+
+/*
+
+RIGHT COL
+
+*/
+.load-right-col {
+	margin-left: 5px;
+}

@@ -1,13 +1,9 @@
 var React = require('react');
 
-var style = {
-	//"float": 'left'
-}
-
 var RightCol = React.createClass ({
     render: function() {
         return (
-        	<div className="load-right-col" style={style}>
+        	<div className="load-right-col">
 	            <h1>
 	            RightCol
 	            </h1>
