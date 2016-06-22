@@ -6,8 +6,8 @@ var RightCol = require('./RightCol.jsx')
 var Container = React.createClass ({
     render: function() {
         return (
-        	<div className="load-container">
-	            <Header />
+        	<div classNa="load-container">
+	            {/*<Header />*/}
 	            <LeftCol />
 	            <RightCol />
 	        </div>

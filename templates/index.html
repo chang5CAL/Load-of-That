@@ -1,5 +1,12 @@
+<!-- AllAuth code -->
+{% load i18n %}
+{% load account socialaccount %}
+{% get_providers as socialaccount_providers %}
+
+<!-- loading webpack -->
 {% load render_bundle from webpack_loader %}
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,6 +14,31 @@
         <title>Hello React</title>
     </head>
     <body>
+	    <header class="load-header">
+			<div class="load-header-search">
+	    		<img src="http://www.edwardsengineering.com/wp-content/uploads/2014/01/random-logo-e1390919001831.png" />
+	            <input type="text" />
+	        </div>
+
+	        <!-- Navigation -->
+	        <div class="load-navigation">
+	        	<ul>
+	            	<li><a href="#test">Home</a></li>
+	            	<li><a href="#test">About</a></li>
+	            	<li><a href="#test">Contact Us</a></li>
+	        	</ul>
+
+	        	<!-- Include FB -->
+				<div class="socialaccount_ballot">
+				    <ul class="socialaccount_providers">
+				        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+				    </ul>
+				</div>
+		        <!-- /Include FB -->
+
+	        </div>
+	        <!-- /Navigation -->
+	    </header>
         <div id="container"></div>
         {% render_bundle 'main' %}
     </body>

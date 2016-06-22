@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from allauth.socialaccount.models import SocialToken
-from allauth.socialaccount.models import SocialAppManager
 
 def index(request):
     # template = loader.get_template('templates/test.html')
+
+    # request.user gives us the access 
     token = SocialToken.objects.filter(account__user=request.user, account__provider='facebook')
     if request.method == "POST":
     	print("post")
