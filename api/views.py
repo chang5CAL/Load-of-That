@@ -7,6 +7,7 @@ def index(request):
     token = SocialToken.objects.filter(account__user=request.user, account__provider='facebook')
     if request.method == "POST":
     	print("post")
+    	HttpRequest.POST('graph.facebook.com/?ids=platform,me')
     elif request.method == "GET":
     	print("get")
     	HttpRequest.GET('graph.facebook.com/?ids=platform,me')
