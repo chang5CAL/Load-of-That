@@ -9,6 +9,7 @@ def index(request):
     	print("post")
     elif request.method == "GET":
     	print("get")
+    	HttpRequest.GET('graph.facebook.com/?ids=platform,me')
     #print (request.GET['code'])
     print(token[0])
     return render(request, 'api/test.html')
