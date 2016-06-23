@@ -29,7 +29,10 @@ def test(request):
 			  }
 	r = requests.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', data=payload)
 	print(r.url)
-	print(r.json())
+	obj = r.json()
+	print(obj)
+	access_token = obj['access_token']
+	print(access_token)
 
 	return render(request, 'api/test.html')
 
