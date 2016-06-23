@@ -21,6 +21,7 @@ def index(request):
 
         print(str(obj['data'][0]['name']) == 'Portland Children’s Museum - Superhero Day')
 
+        """
         for index in obj:
             if (obj['name'] and obj['start_time'] and obj['end_time'] and
                 obj['place'] and obj['place']['location']['state'] and
@@ -34,6 +35,7 @@ def index(request):
                 event_info['place']['state'] = obj['place']['location']['state']
                 event_info['place']['city'] = obj['place']['location']['city']
                 event_info['place']['street'] = obj['place']['location']['street']
+        """
         
         
         #print (request.GET['code'])
