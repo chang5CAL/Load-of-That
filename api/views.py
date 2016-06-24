@@ -19,19 +19,22 @@ def index(request):
         obj = json.loads(r.text)
 
         
-        for index in obj:
-            if ('name' in obj and 'start_time' in obj and 'end_time'in obj
-                and 'place' in obj and 'location' in obj['place'] and
-                'city' in obj['place']['location'] and
-                'street' in obj['place']['location']:
-                #I don't know how exactly to check if they exist...
-                event_info['name'] = obj['name']
-                event_info['start_time'] = obj['start_time']
-                event_info['end_time'] = obj['end_time']
+        for index in obj['data']:
+            print('name' in index)
+            
+            if ('name' in index and 'start_time' in index and
+                'end_time'in index and 'place' in index and
+                'location' in index['place'] and
+                'city' in index['place']['location'] and
+                'street' in index['place']['location']):
+                event_info['name'] = index['name']
+                event_info['start_time'] = index['start_time']
+                event_info['end_time'] = index['end_time']
                 event_info['place'] = dict()
-                event_info['place']['state'] = obj['place']['location']['state']
-                event_info['place']['city'] = obj['place']['location']['city']
-                event_info['place']['street'] = obj['place']['location']['street']
+                event_info['place']['state'] = index['place']['location']['state']
+                event_info['place']['city'] = index['place']['location']['city']
+                event_info['place']['street'] = index['place']['location']['street']
+                print("Stored information in dictionary (Probably)")
         
         
         
