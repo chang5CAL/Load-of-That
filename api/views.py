@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from django.template import Context, Template
+from django.http import HttpResponseRedirect
 import requests
 import json
 from allauth.socialaccount.models import SocialToken
 import requests 
+import datetime
 
 def index(request):
     # template = loader.get_template('templates/test.html')
@@ -43,8 +46,6 @@ def index(request):
     return render(request, 'api/test.html')
 
 def test(request):
-	print (request)
-	print ('random stuff')
 	token = request.GET["code"]
 	print(token)
 	payload = {
@@ -55,13 +56,28 @@ def test(request):
 				'grant_type': 'authorization_code',
 			  }
 	r = requests.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', data=payload)
-	print(r.url)
 	obj = r.json()
-	print(obj)
 	access_token = obj['access_token']
 	print(access_token)
-
-	return render(request, 'api/test.html')
+	request.session['access_token'] = access_token
+	request.session['time'] = str(datetime.datetime.now())
+	return HttpResponseRedirect("/")
+	#return render(request, 'api/test.html')
 
 def test2(request):
 	return render(request, 'api/test2.html')
+
+def cookie(request):
+	context = Context({})
+	if request.session.get('visited'):
+		last_visit_time = request.session.get('last_visit')
+		print(last_visit_time)
+		context = Context({'test': 'not the first time!'})
+	else:
+		request.session['visited'] = str(datetime.datetime.now())
+		context = Context({"test": "first time"})
+	
+	return render(request, 'api/cookie.html', context)
+
+def fb(request):
+	return render(request, 'api/index.html')

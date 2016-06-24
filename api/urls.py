@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^test', views.test, name='test'),
-    url(r'^test2', views.test2, name='test2')
+    url(r'^cookie', views.cookie, name='cookie'),
+    url(r'^fb', views.fb, name='fb')
 ]

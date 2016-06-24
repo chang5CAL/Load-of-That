@@ -1,8 +1,9 @@
 <!-- AllAuth code -->
-{% load i18n %}
+
+<!-- {% load i18n %}
 {% load account socialaccount %}
 {% get_providers as socialaccount_providers %}
-
+ -->
 <!-- loading webpack -->
 {% load render_bundle from webpack_loader %}
 {% load staticfiles %}
@@ -29,13 +30,22 @@
 	        	</ul>
 
 	        	<!-- Include FB -->
+	        	{% if not is_authenticated %}
 				<div class="socialaccount_ballot">
 				    <ul class="socialaccount_providers">
-				        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+				        <li>
+							<a title="Facebook" class="socialaccount_provider facebook" href="/accounts/facebook/login/?process=login">Facebook</a>
+						</li>
 				    </ul>
 				</div>
-		        <!-- /Include FB -->
+				{% endif %}
 
+				{% if has_calendar %}
+				{{ access_token }}
+				<input id="a-t" type="hidden" value="{{access_token}}">
+				{% endif %}
+				<a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=code&redirect_uri=http://localhost:8000/api/test&scope=openid Calendars.ReadWrite&state=12345&nonce=678910">permission</a>
+		        <!-- /Include FB -->
 	        </div>
 	        <!-- /Navigation -->
 	    </header>
