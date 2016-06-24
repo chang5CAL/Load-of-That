@@ -5,6 +5,7 @@ var Activities = React.createClass ({
 	propTypes: {
 		events: React.PropTypes.array.isRequired,
 		remove: React.PropTypes.func.isRequired,
+		addEvent: React.PropTypes.func.isRequired,
 	},
 
 	getDefaultProps: function() {
@@ -19,7 +20,9 @@ var Activities = React.createClass ({
         					 title={event.title} 
         					 url={event.url} 
         					 image={event.image}
-        					 remove={this.props.remove} />;
+        					 remove={this.props.remove}
+        					 add={this.props.addEvent}
+        					 event={event} />;
         }.bind(this));
         return (
         	<div className="load-activities">

@@ -75,7 +75,7 @@ LEFT COLUMN CSS
 .load-left-col {
 	float: left;
 	height: 700px;
-	width:700px;
+	width:60%;
 	overflow: scroll;
 	overflow-x: hidden;
 }
@@ -130,5 +130,13 @@ RIGHT COL
 
 */
 .load-right-col {
-	margin-left: 5px;
+	margin-left: 60%;
+}
+
+/*
+
+ADDED EVENTS IN RIGHT COL
+
+*/
+.load-added-event-list {
 }
