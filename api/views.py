@@ -17,16 +17,13 @@ def index(request):
         r = requests.get('https://graph.facebook.com/search?q=portland&type=event',params=json_token)
         #r = requests.get(request_string)
         obj = json.loads(r.text)
-        print("They're the same! \n \n READ THIS \n \n")
 
-        print(str(obj['data'][0]['name']) == 'Portland Children’s Museum - Superhero Day')
-
-        """
+        
         for index in obj:
-            if (obj['name'] and obj['start_time'] and obj['end_time'] and
-                obj['place'] and obj['place']['location']['state'] and
-                obj['place']['location']['city'] and
-                obj['place']['location']['street']):
+            if ('name' in obj and 'start_time' in obj and 'end_time'in obj
+                and 'place' in obj and 'location' in obj['place'] and
+                'city' in obj['place']['location'] and
+                'street' in obj['place']['location']:
                 #I don't know how exactly to check if they exist...
                 event_info['name'] = obj['name']
                 event_info['start_time'] = obj['start_time']
@@ -35,7 +32,7 @@ def index(request):
                 event_info['place']['state'] = obj['place']['location']['state']
                 event_info['place']['city'] = obj['place']['location']['city']
                 event_info['place']['street'] = obj['place']['location']['street']
-        """
+        
         
         
         #print (request.GET['code'])
