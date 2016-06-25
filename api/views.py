@@ -55,21 +55,22 @@ def index(request):
     return render(request, 'api/index.html')
 # Redirection page for outlook to get access token
 def test(request):
-	# token = request.GET["code"]
-	# print(token)
-	# payload = {
-	# 			'client_id': '003a3ad3-9d6a-493d-820e-6738c415f350',
-	# 			'client_secret': '8q7HUa7EcTcDBD668hPbg2t',
-	# 			'code': token,
-	# 			'redirect_uri': 'http://localhost:8000/api/test',
-	# 			'grant_type': 'authorization_code',
-	# 		  }
-	# r = requests.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', data=payload)
-	# obj = r.json()
-	# access_token = obj['access_token']
-	# print(access_token)
-	# request.session['access_token'] = access_token
-	# request.session['time'] = str(datetime.datetime.now())
+	token = request.GET["code"]
+	print(token)
+	payload = {
+				'client_id': '003a3ad3-9d6a-493d-820e-6738c415f350',
+				'client_secret': '8q7HUa7EcTcDBD668hPbg2t',
+				'code': token,
+				'redirect_uri': 'http://localhost:8000/api/test',
+				'grant_type': 'authorization_code',
+			  }
+	r = requests.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', data=payload)
+	obj = r.json()
+	access_token = obj['access_token']
+	print(access_token)
+	request.session['access_token'] = access_token
+	request.session['time'] = str(datetime.datetime.now())
+	request.session['email_type'] = "Outlook"
 
 	# print("RANDDOM SMA")
 	# payload = {
@@ -82,6 +83,9 @@ def test(request):
 	# print (r.content)
 	
 	#return HttpResponseRedirect("/")
+	return render(request, 'api/play.html')
+
+def play(request):
 	return render(request, 'api/play.html')
 
 # TODO: remove
@@ -110,3 +114,23 @@ def event(request):
 	# r = requests.get('https://outlook.office.com/api/v2.0/me/events', headers=payload)
 	# print (r.content)
 	return render(request, 'api/test.html')
+
+def google(request):
+	token = request.GET["code"]
+	print(token)
+	payload = {
+				'client_id': '1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com',
+				'client_secret': 'PA20WEpxInePjBW5ggZQX3n1',
+				'code': token,
+				'redirect_uri': 'http://localhost:8000/api/google',
+				'grant_type': 'authorization_code',
+			  }
+	r = requests.post('https://www.googleapis.com/oauth2/v4/token', data=payload)
+	obj = r.json()
+	access_token = obj['access_token']
+	print(access_token)
+	request.session['access_token'] = access_token
+	request.session['time'] = str(datetime.datetime.now())
+	request.session['email_type'] = "Google Calendar"
+
+	return HttpResponseRedirect("/")

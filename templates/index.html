@@ -43,8 +43,11 @@
 				{% if has_calendar %}
 				{{ access_token }}
 				<input id="a-t" type="hidden" value="{{access_token}}">
+				<input id="email_type" type="hidden" value={{email_type}}
 				{% endif %}
-				<a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=token&redirect_uri=http://localhost:8000/api/test&scope=openid https://outlook.office.com/calendars.readwrite https://outlook.office.com/mail.readwrite&state=12345&nonce=678910">permission</a>
+				<a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=code&redirect_uri=http://localhost:8000/api/test&scope=openid https://outlook.office.com/calendars.readwrite&state=12345&nonce=678910">outlook</a>
+				<br />
+				<a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com&response_type=code&scope=openid https://www.googleapis.com/auth/calendar&redirect_uri=http://localhost:8000/api/google&state=12345">Google</a>
 		        <!-- /Include FB -->
 	        </div>
 	        <!-- /Navigation -->

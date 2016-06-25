@@ -41,6 +41,37 @@ var Container = React.createClass ({
 		});
 		this.remove(event.id)
 	},
+	removeAllAddedEvent: function() {
+		this.setState({
+			listOfEvents: [],
+		});
+	},
+	addToCalendar: function() {
+		var token = document.getElementById("a-t").value
+		console.log("add to calendar called");
+		for (var i = 0; i < this.state.listOfEvents.length; i++) {
+			/*
+			payload = {}
+			var json = JSON.stringify(payload);
+			$.ajax({
+				type: "POST",
+				url: 'https://outlook.office.com/api/v2.0/me/events',
+				headers: {'Authorization': 'Bearer ' + token,
+						  'Content-Type': 'application/json',
+						 },
+				data: json,
+				'error': function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR)
+				},
+				'success': function(res) {
+					console.log(res);
+					alert("success");
+				}	
+			});*/
+			console.log("printing out " + this.state.listOfEvents[i]);
+		}
+		this.removeAllAddedEvent();
+	},
     render: function() {
         return (
         	<div classNa="load-container">
@@ -49,7 +80,7 @@ var Container = React.createClass ({
 	            		 remove={this.remove} 
 	            		 newQuery={this.newQuery} 
 	            		 addEvent={this.addEvent} />
-	            <RightCol listOfEvents={this.state.listOfEvents}/>
+	            <RightCol listOfEvents={this.state.listOfEvents} addToCalendar={this.addToCalendar}/>
 	        </div>
         )
     }

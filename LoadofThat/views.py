@@ -8,6 +8,7 @@ def index(request):
             'is_authenticated': False,
             'has_calendar': False,
             'access_token': "",
+            'email_type': "",
           }
     if (request.user.is_authenticated()):
         obj['is_authenticated'] = True
@@ -28,6 +29,7 @@ def index(request):
             # user has a calendar and is still authenticated
             obj['has_calendar'] = True
             obj['access_token'] = request.session['access_token']
+            obj['email_type'] = request.session['email_type']
 
     context = Context(obj)
     return render(request, 'index.html', context)

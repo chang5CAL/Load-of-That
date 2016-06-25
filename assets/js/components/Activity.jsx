@@ -17,7 +17,7 @@ var Activity = React.createClass ({
 	            <div className="activity-content-body">
 		            <div className="activity-title"><a href={this.props.url}>{this.props.title}</a></div>
 		            <p className="activity-body">This is the article body that will show you how great the event will be</p>
-		            <button className="activity-url" onClick={this.props.add.bind(null, this.props.event)}>Add to Calendar </button>
+		            <button className="activity-url" onClick={this.props.add.bind(null, this.props.event)}>Add to List</button>
 		            <p className="activity-date">Date</p>
 		            <p className="activity-location">Location</p>
 		            <button onClick={this.props.remove.bind(null, this.props.id)}>X</button>
