@@ -4,21 +4,19 @@ from django.http import HttpResponseRedirect
 import requests
 import json
 from allauth.socialaccount.models import SocialToken
-<<<<<<< HEAD
 from allauth.socialaccount.models import SocialAppManager
 from datetime import datetime
-=======
 import requests 
 import datetime
->>>>>>> 9a7b086dc28dfc4657499f3a0cc884d2c2a03b72
+
 
 def index(request):
     # template = loader.get_template('templates/test.html')
-    current_year = datetime.now().year
+    """current_year = datetime.now().year
     current_month = datetime.now().month
     current_day = datetime.now().day
     current_hour = datetime.now().hour
-    current_minute = datetime.now().minute
+    current_minute = datetime.now().minute"""
     event_info = dict()
     
     print(request.user.is_authenticated())
@@ -55,9 +53,6 @@ def index(request):
 
             
     return render(request, 'api/index.html')
-
-<<<<<<< HEAD
-=======
 # Redirection page for outlook to get access token
 def test(request):
 	# token = request.GET["code"]
@@ -115,4 +110,3 @@ def event(request):
 	# r = requests.get('https://outlook.office.com/api/v2.0/me/events', headers=payload)
 	# print (r.content)
 	return render(request, 'api/test.html')
->>>>>>> 9a7b086dc28dfc4657499f3a0cc884d2c2a03b72
