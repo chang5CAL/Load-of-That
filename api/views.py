@@ -37,6 +37,7 @@ def index(request):
                 event_info['place']['state'] = index['place']['location']['state']
                 event_info['place']['city'] = index['place']['location']['city']
                 event_info['place']['street'] = index['place']['location']['street']
+                event_info['source'] = 'Facebook'
                 
                 if 'end_time'in index and 'place' in index:
                     event_info['end_time'] = index['end_time']
