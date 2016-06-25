@@ -1,0 +1,25 @@
+hello
+<button class="sender">Send me</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var token = window.location.hash.split("&")[0].substring(14);
+		$('.sender').click(function() {
+
+			$.ajax({
+				type: "GET",
+				url: 'https://outlook.office.com/api/v2.0/me/mailfolders/inbox/messages?$top=10',
+				headers: {'Authorization': 'Bearer ' + token,
+					'Accept': 'application/json;odata.metadata=minimal;odata.streaming=true',
+					},
+				'error': function(jqXHR, textStatus, errorThrown) {
+						console.log(jqXHR)
+					},
+				'success': function(res) {
+					console.log(res);
+					alert("success");
+				}	
+			});
+		});
+	});
+</script>
