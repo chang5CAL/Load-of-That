@@ -2,23 +2,22 @@ hello
 <button class="sender">Send me</button>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script type="text/javascript">
-	alert('hi');
 	$(document).ready(function() {
 		$('.sender').click(function() {
+
 			$.ajax({
-				type: "POST",
-				url: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-				data: {'client_id': '003a3ad3-9d6a-493d-820e-6738c415f350',
-						'client_secret': '8q7HUa7EcTcDBD668hPbg2t',
-						'code': 'M88f137b5-a93c-58ce-de1b-0ae7c19bc1ce',
-						'redirect_uri': 'http://localhost:8000/api/test',
-						'grant_type': 'authorization_code',
-					  },
-			}).error(function() {
-				alert('error');
-			}).success(function(res) {
-				console.log(res);
-				alert("success");
+				type: "GET",
+				url: 'https://outlook.office.com/api/v2.0/me/Contacts',
+				headers: {'Authorization': 'Bearer EwAQA+l3BAAUo4xeBIbHjhBxWOFekj4Xy2fhaGQAASc8nPD4SBL8f82F4SJT2v/21cq8mMG/axjoZrrsRhkDG4eLicj8DopfByRbOKK7XacPiJkjenCVgoEqIF0zykc4PI2ejCnthINMbOvV76ZBRVdd5iwVMKNBdaE3GkcNrSMIT9neZfN1ESv8h8YswXM/HdCOVMgjEDDmem/AN+R32R7+bkt+SbmukxfF8ya20jGkkdZ5tlmn3+lTo3VZKvX+FKrg9Agf5wSIlu7pIAKnOTBjfDgdt2wzgAXRyPt1rzwdD+ugy/Wq8MTjiNCjeeGYPOMLEeigkghG3o1M9sTNcEK7VQbd9VfpdnmUYsKlaA8dSReQ8I4y8oMlmfNCBUQDZgAACMcYplvOM28v4AGztY4zbrxxyCjaA40eeCREB0JWfKTufghW6pV/aC105ES7YIszQ6OykEwEKbbBCbOf0Kj794nJTMYKb5hQcAyuk6WL/ZARyX9H3bd620fAGhO/Nl7KgcQ8tF7rA0hG84BMCl80tDR3rhmvNq5/X7UuC52zyw17c4Nt0togY7rgxqaVr5tj+RMlR9+sKRAKFwjL441Y8FVCSoIqpGSLgJXVWfLAlSg8Qu5A1Hd0lUuxi3qMeP7Nty1yuuxGEeGBFLtcNgJdvijO3dV8dafkitwPzQ2iSByhr3aINyK7wqbBLrofsLEzn5doQdUWwUG3HUY8Wm1Ki3VeJfwtN+FKbsypE3SXn3I3ei42vB4mIKCJIu6lPJM5MgdMyO77xHs7HPzHDbyAmiHeGUy1yy7/3nJEHrq1mhEcNtN3O30KCrBXm8PmEUNBcKOMEbq2pACUgRyueWzRB0lI4BAr5oYHn2LC/uz+2QcOa+K4W7otQTBK01eJxolVHUfhwxvsDVZTDCqgH0uPLQwI48kpJGhIqgCaYIz3791Zc0/8YAvyRcQNTSDdDF5DcHY/D0YUIvIn3pykesZYCtQaG2zkT3+xbAZXsQF/TQO/PXM8b3RIuljNEdIjN2fKj4pLrqLaNNWBMNANAg==',
+					'Accept': 'application/json;odata.metadata=minimal;odata.streaming=true',
+					},
+				'error': function(jqXHR, textStatus, errorThrown) {
+						console.log(jqXHR)
+					},
+				'success': function(res) {
+					console.log(res);
+					alert("success");
+				}	
 			});
 		});
 	});
