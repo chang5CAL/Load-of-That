@@ -20,23 +20,25 @@ def index(request):
         r = requests.get('https://graph.facebook.com/search?q=portland&type=event',params=json_token)
         #r = requests.get(request_string)
         obj = json.loads(r.text)
-        print("They're the same! \n \n READ THIS \n \n")
 
-        print(str(obj['data'][0]['name']) == 'Portland Children’s Museum - Superhero Day')
-
-        for index in obj:
-            if (obj['name'] and obj['start_time'] and obj['end_time'] and
-                obj['place'] and obj['place']['location']['state'] and
-                obj['place']['location']['city'] and
-                obj['place']['location']['street']):
-                #I don't know how exactly to check if they exist...
-                event_info['name'] = obj['name']
-                event_info['start_time'] = obj['start_time']
-                event_info['end_time'] = obj['end_time']
+        
+        for index in obj['data']:
+            print('name' in index)
+            
+            if ('name' in index and 'start_time' in index and
+                'end_time'in index and 'place' in index and
+                'location' in index['place'] and
+                'city' in index['place']['location'] and
+                'street' in index['place']['location']):
+                event_info['name'] = index['name']
+                event_info['start_time'] = index['start_time']
+                event_info['end_time'] = index['end_time']
                 event_info['place'] = dict()
-                event_info['place']['state'] = obj['place']['location']['state']
-                event_info['place']['city'] = obj['place']['location']['city']
-                event_info['place']['street'] = obj['place']['location']['street']
+                event_info['place']['state'] = index['place']['location']['state']
+                event_info['place']['city'] = index['place']['location']['city']
+                event_info['place']['street'] = index['place']['location']['street']
+                print("Stored information in dictionary (Probably)")
+        
         
         
         #print (request.GET['code'])
@@ -62,7 +64,6 @@ def test(request):
 	# print(access_token)
 	# request.session['access_token'] = access_token
 	# request.session['time'] = str(datetime.datetime.now())
-	
 
 	# print("RANDDOM SMA")
 	# payload = {

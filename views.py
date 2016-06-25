@@ -9,5 +9,4 @@ import datetime
 
 def index(request):
     # template = loader.get_template('templates/test.html')    
-    
     return render(request, 'index.html')
