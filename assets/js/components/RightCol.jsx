@@ -8,7 +8,8 @@ var RightCol = React.createClass ({
 	},
 	login: function() {
 		if (document.getElementById("a-t")) {
-			return (<div><h1>Events</h1> You're currently logged into Outlook</div>)
+			var type = document.getElementById("email_type");
+			return (<div><h1>Events</h1> You're currently logged into {{type}}</div>)
 		} else {
 			return(
 				<div>
