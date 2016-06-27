@@ -40,16 +40,68 @@
 				</div>
 				{% endif %}
 
+				<input id="logged_in" type="hidden" value="{{has_calendar}}">
+				<input id="email_type" type="hidden" value={{email_type}}>
 				{% if has_calendar %}
 				{{ access_token }}
+
 				<input id="a-t" type="hidden" value="{{access_token}}">
 				{% endif %}
-				<a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=token&redirect_uri=http://localhost:8000/api/test&scope=openid https://outlook.office.com/calendars.readwrite https://outlook.office.com/mail.readwrite&state=12345&nonce=678910">permission</a>
+				<a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=code&redirect_uri=http://localhost:8000/api/test&scope=openid https://outlook.office.com/calendars.readwrite&state=12345&nonce=678910">Outlook</a>
+				<br />
+				<!-- <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com&response_type=code&scope=openid https://www.googleapis.com/auth/calendar&redirect_uri=http://localhost:8000/api/google&state=12345">Google</a> -->
 		        <!-- /Include FB -->
 	        </div>
 	        <!-- /Navigation -->
 	    </header>
         <div id="container"></div>
+
+		<script type="text/javascript">
+			var clientId = '1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com';
+
+			var apiKey = 'AIzaSyDPnkp9aUFm5kzLsJ-Y68t-6Ol_CUiDtj0';
+
+			var scopes = 'https://www.googleapis.com/auth/calendar';
+
+			function handleClientLoad() {
+			// Step 2: Reference the API key
+				gapi.client.setApiKey(apiKey);
+				window.setTimeout(checkAuth,1);
+			}
+
+			function checkAuth() {
+				gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+			}
+
+			function handleAuthResult(authResult) {
+				if (authResult && !authResult.error) {
+					console.log("logged in by default");
+					document.getElementById("logged_in").value = "True"
+					// to ensure Google from the background doesn't override outlook
+					// when they log in as both
+					if (document.getElementById("email_type").value == "") {
+						document.getElementById("email_type").value = "Google_Calendar"
+					}
+					// makeApiCall();
+				} else {
+					// hack way due to how we manage with django and templates
+					// by default button won't appear if we're already signed in to an
+					// account
+					// only allow button to show up if we're not logged in with any accounts
+					var authorizeButton = document.getElementById('authorize-button');
+					authorizeButton.style.visibility = '';
+					authorizeButton.onclick = handleAuthClick;
+				}
+			}
+
+			function handleAuthClick(event) {
+				// Step 3: get authorizaitfon to use private data
+				gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+				return false;
+			}
+	    </script>
+	    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+	    
         {% render_bundle 'main' %}
     </body>
 </html>

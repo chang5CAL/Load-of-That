@@ -1,20 +1,106 @@
-hello
 <button class="sender">Send me</button>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth">
+    </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		var token = window.location.hash.split("&")[0].substring(14);
+		//var token = 'EwCIAul3BAAUo4xeBIbHjhBxWOFekj4Xy2fhaGQAAb05BOu3eA2BavX+qflv/v8jA9O0Jf8/0i2yXTA+XjcpilQx0FWjast/YBUXDwDeHwciFUD0WPPHF2oy4gSVCPI01hreFWxmlFis0h6zouV2oO2tg3pSajKxf79qwCP0D0uOhv/GZaaj6oKX9iIzQ6h7wZohN/v/hlee5V826wOA7tvawS2nB8jicw7RCtZADq/jrIyQN783RTO5DkE2JDe+uQWGwLqkcdApeFiCnfv2hFN86AITMx23mlOihTnqlUxmHNcZNktiea1jYzDJ59AThPInLegYzvyR2L/NIbbvSLpjNc6L9BCVbLaszsB+MnN473/XXcoggZviUQOUTjYDZgAACFnEg+f6I+pbWAEnSD1aX21QJC6avT/Zb6U5+CkKgrDVDydO1hUm6a4ViJjJUtJ9Jk62xN+AWnQizeDBUkVuCcGMpSr6CcjXUQyy4gKApUAJc3dzYRfqxB+gC2MYQSq47pUWMEGWfcy5KXxAhp73hJZegzm2peuYCcPy5fKdkUzdG9dEePNBh6WiS4uIw2LOnlFMprlVnMk0dJ1j59xUW04ZYoQWvLKUr18/pUdcD3+k671aINtzK2quze4bESYkLeZ5+gZx6MrMXrG9GFK/SQD1UATfP3yOeC/EhuvCweeLWl7SD7Jwn21EcWG4K0f/Bh9kNHaNzDfBGLW88LpziH9NbuQKP5pDuNLki9eym3gYboOALlXIrNs8WvaWrp1xynKYrb1Qe7Fy60ayEQK9DrHeReMGYOsEVdy9Xo8AxQRPl4+Hv1cxDjAT61TbTl1/hgkJmhl+fL9dWElaNL62Vq3lIY8B';
+
+		var token = "ya29.Ci8NA5BUvKWR0GXhC_JQsyPYyePja0zx2oct1mgFatE6Fh7C0n_KnOAcUtMDQDajrg";//window.location.hash.split("&")[0].substring(14);
+	/*	
+		var event = {
+			"id": "1242151243",
+			"start": {
+				'dateTime': new Date(),
+				'timeZone': 'America/Los_Angeles',
+			},
+			"end": {
+				'dateTime': new Date(),
+				'timeZone': 'America/Los_Angeles',
+			},
+			"description": "Test event",
+			"location": "Seattle, WA",
+			"source": {
+				"url": "http://google.com",
+				"title": "Title!"
+			},
+		};*/
+		var event = {
+  'summary': 'Google I/O 2015',
+  'location': '800 Howard St., San Francisco, CA 94103',
+  'description': 'A chance to hear more about Google\'s developer products.',
+  'start': {
+    'dateTime': '2016-05-28T09:00:00-07:00',
+    'timeZone': 'America/Los_Angeles'
+  },
+  'end': {
+    'dateTime': '2016-05-28T17:00:00-07:00',
+    'timeZone': 'America/Los_Angeles'
+  },
+  'recurrence': [
+    'RRULE:FREQ=DAILY;COUNT=2'
+  ],
+  'attendees': [
+    {'email': 'lpage@example.com'},
+    {'email': 'sbrin@example.com'}
+  ],
+  'reminders': {
+    'useDefault': false,
+    'overrides': [
+      {'method': 'email', 'minutes': 24 * 60},
+      {'method': 'popup', 'minutes': 10}
+    ]
+  }
+};
+		console.log(event);
+		
+
+		var payload = {
+			"calendarId": "primary",
+			"resource": event,	
+		}
+		// outlook api
+		/*
+		var payload = {
+		  "Subject": "Discuss the Calendar REST API",
+		  "Body": {
+		    "ContentType": "HTML",
+		    "Content": "I think it will meet our requirements!"
+		  },
+		  "Start": {
+		      "DateTime": "2016-06-26T18:00:00",
+		      "TimeZone": "Pacific Standard Time"
+		  },
+		  "End": {
+		      "DateTime": "2016-06-26T19:00:00",
+		      "TimeZone": "Pacific Standard Time"
+		  },
+		  "Attendees": [
+		    {
+		      "EmailAddress": {
+		        "Address": "janets@a830edad9050849NDA1.onmicrosoft.com",
+		        "Name": "Janet Schorr"
+		      },
+		      "Type": "Required"
+		    }
+		  ]
+		}*/
+	    var json = JSON.stringify(payload)
+		console.log(json);
 		$('.sender').click(function() {
 
 			$.ajax({
-				type: "GET",
-				url: 'https://outlook.office.com/api/v2.0/me/mailfolders/inbox/messages?$top=10',
-				headers: {'Authorization': 'Bearer ' + token,
-					'Accept': 'application/json;odata.metadata=minimal;odata.streaming=true',
-					},
+				type: "POST",
+				//url: 'https://outlook.office.com/api/v2.0/me/events',
+				url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
+				headers: {
+					'Authorization': 'Bearer ' + token,
+					'Content-Type': 'application/json',
+				},
+				data: json,
 				'error': function(jqXHR, textStatus, errorThrown) {
-						console.log(jqXHR)
-					},
+					console.log(jqXHR)
+				},
 				'success': function(res) {
 					console.log(res);
 					alert("success");
