@@ -39,8 +39,6 @@ def index(request):
                 event_info['place']['street'] = index['place']['location']['street']
                 event_info['source'] = 'Facebook'
                 
-                if 'end_time'in index and 'place' in index:
-                    event_info['end_time'] = index['end_time']
             """
             if ('name' in index and 'start_time' in index and
                 'end_time'in index and 'place' in index and
