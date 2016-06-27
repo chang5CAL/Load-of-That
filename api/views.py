@@ -71,16 +71,6 @@ def test(request):
 	request.session['access_token'] = access_token
 	request.session['time'] = str(datetime.datetime.now())
 	request.session['email_type'] = "Outlook"
-
-	# print("RANDDOM SMA")
-	# payload = {
-	# 		'Authorization': 'Bearer ' + str(access_token),
-	# 		'Accept': 'application/json;odata.metadata=minimal;odata.streaming=true',
-	# 		'X-anchorMailBox': 'allieb@oauthplay.onmicrosoft.com'
-	# }
-	# r = requests.get('https://outlook.office.com/api/v2.0/me/mailfolders/inbox/messages?$top=10', headers=payload)
-	# print("MORE RANDOM SMASH")
-	# print (r.content)
 	
 	#return HttpResponseRedirect("/")
 	return render(request, 'api/play.html')
@@ -131,6 +121,6 @@ def google(request):
 	print(access_token)
 	request.session['access_token'] = access_token
 	request.session['time'] = str(datetime.datetime.now())
-	request.session['email_type'] = "Google Calendar"
+	request.session['email_type'] = "Google_Calendar"
 
 	return HttpResponseRedirect("/")
