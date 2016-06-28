@@ -6,13 +6,12 @@ var AddedEvents = React.createClass ({
 	},
     render: function() {
         return (
-        	<li className="load-added-event-list">
-        		<div>
-        			{this.props.event.title}
-        			<br />
-        			{this.props.event.url}
-        		</div>
-        	</li>
+    		<div>
+    			{this.props.event.title}
+    			<br />
+    			{this.props.event.url}
+                <hr />
+    		</div>
         )
     }
 });

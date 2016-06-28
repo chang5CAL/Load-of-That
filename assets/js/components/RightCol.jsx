@@ -24,8 +24,10 @@ var RightCol = React.createClass ({
 		if (document.getElementById("logged_in").value == "True") {
 			var type = document.getElementById("email_type").value.replace("_", " ");
 			return (
-				<div><h1>Events</h1> 
-				<h3>You're currently logged into {type}</h3></div>
+				<div>
+					<h1>Events</h1> 
+					<h4>You're currently logged into {type}</h4>
+				</div>
 			);
 		} else {
 			return(
@@ -53,15 +55,18 @@ var RightCol = React.createClass ({
 	},
     render: function() {
     	var listEvents = this.props.listOfEvents.map(function(event) {
-        	return <AddedEvents key={event.id} event={event} />;
+        	return (
+        		<div key={event.id}>
+	        		<AddedEvents event={event} />
+	        	</div>
+        	);
         }.bind(this));
 
         return (
         	<div className="load-right-col">
 	            {this.login()}
-	            <ul>
-	            	{listEvents}
-	            </ul>
+	            <hr />
+				{listEvents}
 	           	{this.checkout()}
 	        </div>
         );
