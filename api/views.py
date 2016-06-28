@@ -8,17 +8,7 @@ from allauth.socialaccount.models import SocialAppManager
 from datetime import datetime
 import requests 
 from datetime import datetime
-from django.db import models
-from rest_framework import serializers
 
-class FacebookSerializer(serializers.ModelSerializer):
-    class Meta:
-        #model = 'Facebook'
-        fields = ('name','start_time','place','source')
-
-class FacebookView():
-    #model = 'Facebook'
-    serializer_class = FacebookSerializer
 
 def index(request):
     # template = loader.get_template('templates/test.html')
