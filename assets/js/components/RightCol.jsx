@@ -25,15 +25,13 @@ var RightCol = React.createClass ({
 			var type = document.getElementById("email_type").value.replace("_", " ");
 			return (
 				<div>
-					<h1>Events</h1> 
 					<h4>You're currently logged into {type}</h4>
 				</div>
 			);
 		} else {
 			return(
 				<div>
-					<h1>Events</h1>
-					You have to be logged in to save your events to your calendar:
+					<h4>You have to be logged in to save your events to your calendar:</h4>
 					<br />
 					<a className="btn btn-social btn-microsoft" href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=code&redirect_uri=http://localhost:8000/api/test&scope=openid https://outlook.office.com/calendars.readwrite&state=12345&nonce=678910">
 						<span className="fa fa-windows"></span>Add To Outlook Calendar</a>
@@ -64,6 +62,7 @@ var RightCol = React.createClass ({
 
         return (
         	<div className="load-right-col">
+        		<h1>Events Added</h1>
 	            {this.login()}
 	            <hr />
 				{listEvents}

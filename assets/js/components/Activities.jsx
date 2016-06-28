@@ -34,7 +34,7 @@ var Activities = React.createClass ({
         return (
         	<div className="load-activities">
 	            <h1>
-	            Activities
+	            Events
 	            <hr className="activity-hr" />
 	            </h1>
 	            {listEvents}
