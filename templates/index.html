@@ -52,6 +52,10 @@
 		        <!-- /Include FB -->
 	    </header>
     	<div class="overall-container">
+    		{% if not is_authenticated or not eventbrite_access_token %}
+    			Sign into provider accounts to find more events:
+    		{% endif %}
+
         	{% if not is_authenticated %}
 			<div class="socialaccount_ballot">
 				<a title="Facebook" class="btn btn-social btn-facebook" href="/accounts/facebook/login/?process=login"><span class="fa fa-facebook"></span>Login with Facebook</a>
