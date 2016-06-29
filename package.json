@@ -26,5 +26,9 @@
     "react-dom": "^15.1.0",
     "webpack": "^1.13.1",
     "webpack-bundle-tracker": "0.0.93"
+  },
+  "dependencies": {
+    "react-bootstrap": "^0.29.5",
+    "react-tap-event-plugin": "^1.0.0"
   }
 }

@@ -3,6 +3,10 @@ var Header = require('./Header.jsx')
 var LeftCol = require('./LeftCol.jsx')
 var RightCol = require('./RightCol.jsx')
 
+var Row = require('react-bootstrap').Row;
+var Col = require('react-bootstrap').Col;
+
+
 var Container = React.createClass ({
 	getInitialState: function() {
 		return {
@@ -27,10 +31,11 @@ var Container = React.createClass ({
 	},
 	newQuery: function(location, type) {
 		var newEvents = [
-						 {id: 4, title: "Tokyo", url:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png", image:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png"}, 
-						 {id: 5, title: "United States", url: "https://www.usa.gov/about-the-us", image: "http://i.infopls.com/images/states_imgmap.gif"}, 
-						 {id: 6, title: "Spain", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
-					   ];
+			{id: 4, title: "Tokyo", url:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png", image:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png"}, 
+			{id: 5, title: "United States", url: "https://www.usa.gov/about-the-us", image: "http://i.infopls.com/images/states_imgmap.gif"}, 
+			{id: 6, title: "Spain", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
+		    {id: 7, title: "Spain", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
+		];
 		this.setState({
 			events: newEvents,
 		});

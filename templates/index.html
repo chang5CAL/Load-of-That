@@ -11,50 +11,71 @@
 <!DOCTYPE html>
 <html>
     <head>
+    	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+		<!-- imports from the asset folder -->
+    	<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome/css/font-awesome.min.css" %}">
+    	<link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-social/bootstrap-social.css" %}">
     	<link rel="stylesheet" type="text/css" href="{% static "css/react.css" %}">
-        <title>Hello React</title>
+    	<!-- <link rel="stylesheet" type="text/css" href="assets/css/font-awesome/css/font-awesome.min.css"> -->
+        <title>Load of That | Event Finding Extroadinaire!</title>
     </head>
     <body>
-	    <header class="load-header">
+    	<header class="load-header">
 			<div class="load-header-search">
-	    		<img src="http://www.edwardsengineering.com/wp-content/uploads/2014/01/random-logo-e1390919001831.png" />
-	            <input type="text" />
+	    		<img class="logo" src="https://www.microsoft.com/indonesia/events/lightup/Images/Microsoft_Logo.png" />
 	        </div>
 
 	        <!-- Navigation -->
 	        <div class="load-navigation">
-	        	<ul>
+	        	<ul class="">
 	            	<li><a href="#test">Home</a></li>
 	            	<li><a href="#test">About</a></li>
 	            	<li><a href="#test">Contact Us</a></li>
 	        	</ul>
-
-	        	<!-- Include FB -->
-	        	{% if not is_authenticated %}
-				<div class="socialaccount_ballot">
-				    <ul class="socialaccount_providers">
-				        <li>
-							<a title="Facebook" class="socialaccount_provider facebook" href="/accounts/facebook/login/?process=login">Facebook</a>
-						</li>
-				    </ul>
-				</div>
-				{% endif %}
-
-				<input id="logged_in" type="hidden" value="{{has_calendar}}">
-				<input id="email_type" type="hidden" value={{email_type}}>
-				{% if has_calendar %}
-				{{ access_token }}
-
-				<input id="a-t" type="hidden" value="{{access_token}}">
-				{% endif %}
-				<a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=code&redirect_uri=http://localhost:8000/api/test&scope=openid https://outlook.office.com/calendars.readwrite&state=12345&nonce=678910">Outlook</a>
-				<br />
-				<!-- <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com&response_type=code&scope=openid https://www.googleapis.com/auth/calendar&redirect_uri=http://localhost:8000/api/google&state=12345">Google</a> -->
-		        <!-- /Include FB -->
 	        </div>
 	        <!-- /Navigation -->
+<!-- 	        <nav class="navbar navbar-default load-navigation">
+	        	<div vlass="navbar-header">
+	        		<ul class="nav navbar-nav navbar-right">
+	     				<li><a href="#test">Home</a></li>
+		            	<li><a href="#test">About</a></li>
+		            	<li><a href="#test">Contact Us</a></li>
+	        		</ul>
+	        	</div>
+	        </nav> -->
+
+				<!-- <a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=003a3ad3-9d6a-493d-820e-6738c415f350&response_type=code&redirect_uri=http://localhost:8000/api/test&scope=openid https://outlook.office.com/calendars.readwrite&state=12345&nonce=678910">Outlook</a>
+				<br /> -->
+				<!-- <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com&response_type=code&scope=openid https://www.googleapis.com/auth/calendar&redirect_uri=http://localhost:8000/api/google&state=12345">Google</a> -->
+		        <!-- /Include FB -->
 	    </header>
-        <div id="container"></div>
+    	<div class="overall-container">
+        	{% if not is_authenticated %}
+			<div class="socialaccount_ballot">
+				<a title="Facebook" class="btn btn-social btn-facebook" href="/accounts/facebook/login/?process=login"><span class="fa fa-facebook"></span>Login with Facebook</a>
+			</div>
+			{% endif %}
+
+			<input id="logged_in" type="hidden" value="{{has_calendar}}">
+			<input id="email_type" type="hidden" value={{email_type}}>
+			{% if has_calendar %}
+			{{ access_token }}
+
+			<input id="a-t" type="hidden" value="{{access_token}}">
+			{% endif %}
+	        <div id="container"></div>
+	        <hr class="footer-style" />
+	        <footer class='load-footer'>
+	        	This is a footer
+	        </footer>
+	    </div>
+
+	    <script type="text/javascript">
+	    	// used to save the directory of images
+	    	var NO_IMAGE = "{% static "img/No_Image_Available.png" %}"
+	    </script>
 
 		<script type="text/javascript">
 			var clientId = '1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com';
@@ -101,7 +122,7 @@
 			}
 	    </script>
 	    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-	    
+
         {% render_bundle 'main' %}
     </body>
 </html>

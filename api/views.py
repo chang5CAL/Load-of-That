@@ -39,7 +39,7 @@ def index(request):
                 event_info['place']['city'] = index['place']['location']['city']
                 event_info['place']['street'] = index['place']['location']['street']
                 event_info['source'] = 'Facebook'
-                event_info['image']
+                #event_info['image']
                 
             """
             if ('name' in index and 'start_time' in index and
