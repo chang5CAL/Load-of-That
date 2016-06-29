@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^cookie', views.cookie, name='cookie'),
     url(r'^fb', views.fb, name='fb'),
     url(r'^event', views.event, name='event'),
- 	url(r'^google', views.google, name='google'),
+    url(r'^google', views.google, name='google'),
        
 ]
 

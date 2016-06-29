@@ -32,12 +32,14 @@ def index(request):
                 'street' in index['place']['location']):
                 
                 event_info['name'] = index['name']
+                event_info['description'] = index['description']
                 event_info['start_time'] = index['start_time']
                 event_info['place'] = dict()
                 event_info['place']['state'] = index['place']['location']['state']
                 event_info['place']['city'] = index['place']['location']['city']
                 event_info['place']['street'] = index['place']['location']['street']
                 event_info['source'] = 'Facebook'
+                event_info['image']
                 
             """
             if ('name' in index and 'start_time' in index and
