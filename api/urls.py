@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^fb', views.fb, name='fb'),
     url(r'^event', views.event, name='event'),
     url(r'^google', views.google, name='google'),
+    url(r'^meetup', views.meetup, name='meetup'),
        
 ]
 

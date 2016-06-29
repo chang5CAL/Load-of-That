@@ -8,7 +8,18 @@ from allauth.socialaccount.models import SocialAppManager
 from datetime import datetime
 import requests 
 from datetime import datetime
+from api.models import FacebookModel
+from api.serializers import FacebookSerializer
+from rest_framework import generics
 
+class FacebookList():
+    queryset = FacebookModel.objects.all()
+    serializer_class = FacebookSerializer
+    
+
+class FacebookDetail():
+    queryset = FacebookModel.objects.all()
+    serializer_class = FacebookSerializer
 
 def index(request):
     # template = loader.get_template('templates/test.html')
@@ -138,3 +149,20 @@ def google(request):
 	request.session['email_type'] = "Google_Calendar"
 
 	return HttpResponseRedirect("/")
+
+def meetup(request):
+    header = {
+        "Authorization": "Bearer " + "745135362b44194320532523f1b6321", 
+     }
+    body = {
+      "key": "745135362b44194320532523f1b6321",
+      "city": "seattle",
+      "set": "true",
+      "zip": "98105",
+      "country": "us",
+      "city": "seattle",
+      "state": "wa",
+    }
+     r = requests.get("https://api.meetup.com/2/open_events", params=body)
+     print(r.content)
+     return render(request, 'api/test.html')
