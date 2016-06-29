@@ -57,14 +57,21 @@
 				<a title="Facebook" class="btn btn-social btn-facebook" href="/accounts/facebook/login/?process=login"><span class="fa fa-facebook"></span>Login with Facebook</a>
 			</div>
 			{% endif %}
+			{% if eventbrite_access_token %}
+			{{eventbrite_access_token}}
+			<input id="eventbrite-a-t" type="hidden" value="{{eventbrite_access_token}}">
+			{% else %}
+			<a title="Eventbrite" href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=BVSGCXUYLLFDSPVC5H&redirect_uri=http://localhost:8000/api/eventbrite">Eventbrite</a>
+			{% endif %}
 
 			<input id="logged_in" type="hidden" value="{{has_calendar}}">
 			<input id="email_type" type="hidden" value={{email_type}}>
 			{% if has_calendar %}
-			{{ access_token }}
+			{{ outlook_access_token }}
 
-			<input id="a-t" type="hidden" value="{{access_token}}">
+			<input id="a-t" type="hidden" value="{{outlook_access_token}}">
 			{% endif %}
+
 	        <div id="container"></div>
 	        <div class="load-footer">
 				<hr class="footer-style" />
