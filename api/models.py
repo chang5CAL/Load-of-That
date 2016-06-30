@@ -15,5 +15,5 @@ class FacebookModel(models.Model):
     source =  models.CharField(max_length=100, blank=True, default='')
     #image = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100)
 
-    class Meta:
-        ordering = ('created',)
+    #class Meta:
+        #ordering = ('created',)
