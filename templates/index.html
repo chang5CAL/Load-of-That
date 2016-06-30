@@ -53,7 +53,7 @@
 	    </header>
     	<div class="overall-container">
     		{% if not is_authenticated or not eventbrite_access_token %}
-    			Sign into provider accounts to find more events:
+    			Sign into provider accounts to find more events
     		{% endif %}
 
         	{% if not is_authenticated %}
@@ -62,8 +62,7 @@
 			</div>
 			{% endif %}
 			{% if eventbrite_access_token %}
-			{{eventbrite_access_token}}
-			<input id="eventbrite-a-t" type="hidden" value="{{eventbrite_access_token}}">
+				{{eventbrite_access_token}}
 			{% else %}
 			<a title="Eventbrite" href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=BVSGCXUYLLFDSPVC5H&redirect_uri=http://localhost:8000/api/eventbrite">Eventbrite</a>
 			{% endif %}
