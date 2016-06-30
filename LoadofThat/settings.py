@@ -58,6 +58,10 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+
+    #for rest-framework
+    'rest_framework',
+    'api.apps.FacebookConfig'
 )
 
 MIDDLEWARE_CLASSES = (

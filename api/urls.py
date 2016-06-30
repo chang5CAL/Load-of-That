@@ -10,8 +10,10 @@ urlpatterns = [
     url(r'^play', views.play, name='play'),
     url(r'^cookie', views.cookie, name='cookie'),
     url(r'^fb', views.fb, name='fb'),
-    url(r'^event', views.event, name='event'),
- 	url(r'^google', views.google, name='google'),
+    url(r'^google', views.google, name='google'),
+    url(r'^meetup', views.meetup, name='meetup'),
+    url(r'^eventbrite_call', views.eventbrite_call, name='eventbrite_call'),
+    url(r'^eventbrite', views.eventbrite, name='eventbrite'),
        
 ]
 
