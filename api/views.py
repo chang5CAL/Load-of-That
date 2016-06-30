@@ -156,6 +156,23 @@ def meetup(request):
 	}
 	r = requests.get("https://api.meetup.com/2/open_events", params=body)
 	print(r.content)
+	obj = r.json()
+	print(obj.keys)
+	for index in r.content:
+            print("Looking!")
+            if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
+                'location' in index['place'] and
+                'city' in index['place']['location'] and
+                'street' in index['place']['location']):
+                print("Inserting!")
+                event_info['name'] = index['name']
+                event_info['description'] = index['description']
+                event_info['start_time'] = index['start_time']
+                event_info['place'] = dict()
+                event_info['place']['state'] = index['place']['location']['state']
+                event_info['place']['city'] = index['place']['location']['city']
+                event_info['place']['street'] = index['place']['location']['street']
+                event_info['source'] = 'Eventbrite'
 	return render(request, 'api/test.html')
 
 def eventbrite(request):
@@ -194,6 +211,22 @@ def eventbrite_call(request):
 			}
 			r = requests.get('https://www.eventbriteapi.com/v3/events/search/', params=payload)
 			print (r.content)
+                        #obj = json.loads(r.content)
+			for index in r.content:
+                            print("Looking!")
+                            if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
+                                'location' in index['place'] and
+                                'city' in index['place']['location'] and
+                                'street' in index['place']['location']):
+                                print("Inserting!")
+                                event_info['name'] = index['name']
+                                event_info['description'] = index['description']
+                                event_info['start_time'] = index['start_time']
+                                event_info['place'] = dict()
+                                event_info['place']['state'] = index['place']['location']['state']
+                                event_info['place']['city'] = index['place']['location']['city']
+                                event_info['place']['street'] = index['place']['location']['street']
+                                event_info['source'] = 'Eventbrite'
 		else:
 			print("deleted sad face")
 			# access token gone, delete it
