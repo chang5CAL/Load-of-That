@@ -5,9 +5,8 @@ import requests
 import json
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.models import SocialAppManager
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests 
-from datetime import datetime
 from api.models import FacebookModel
 from api.serializer import FacebookSerializer
 from rest_framework import generics
