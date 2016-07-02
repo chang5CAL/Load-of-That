@@ -140,17 +140,20 @@ def meetup(request):
 	#print(r.content)
 	obj = r.json()
 	print(obj['meta'].keys())
-	print(obj['meta']['count'])
+	print(obj['meta']['title'])
 	
 
-	"""for index in obj['meta']:
+	for index in obj['meta']:
             print("Looking!")
-            if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
+            if('title' in index):
+                event_info['name'] = index['title']
+            event_info['source'] = 'Meetup'
+            """if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
                 'location' in index['place'] and
                 'city' in index['place']['location'] and
                 'street' in index['place']['location']):
                 print("Inserting!")
-                event_info['name'] = index['name']
+                event_info['name'] = index['title']
                 event_info['description'] = index['description']
                 event_info['start_time'] = index['start_time']
                 event_info['place'] = dict()
