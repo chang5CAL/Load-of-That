@@ -137,13 +137,13 @@ def meetup(request):
 	}
 	event_info = dict()
 	r = requests.get("https://api.meetup.com/2/open_events", params=body)
-	print(r.content)
+	#print(r.content)
 	obj = r.json()
-	print(obj.keys())
+	print(obj['meta'].keys())
+	print(obj['meta']['count'])
 	
 
-	"""
-	for index in obj:
+	"""for index in obj['meta']:
             print("Looking!")
             if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
                 'location' in index['place'] and
@@ -157,8 +157,7 @@ def meetup(request):
                 event_info['place']['state'] = index['place']['location']['state']
                 event_info['place']['city'] = index['place']['location']['city']
                 event_info['place']['street'] = index['place']['location']['street']
-                event_info['source'] = 'Meetup'
-                """
+                event_info['source'] = 'Meetup'"""
 	return render(request, 'api/test.html')
 
 def eventbrite(request):
