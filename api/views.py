@@ -10,6 +10,7 @@ import requests
 from api.models import FacebookModel
 from api.serializer import FacebookSerializer
 from rest_framework import generics
+from dateutil.tz import tzutc, tzlocal
 
 class FacebookList():
     queryset = FacebookModel.objects.all()
@@ -141,11 +142,12 @@ def meetup(request):
 	obj = r.json()
 	print('Result keys:')
 	print(obj['results'][0].keys())
-	print(localtime(obj['results'][0]['time']))
+	print(obj['results'][0]['time'])
 
 	for index in obj['results']:	
             #print(index)
-            if('id' in index):
+            if('venue' in index and 
+            	'state' in index['venue']):
                 print("inserting")
                 #print(index['title'])
                 #print(index['description'])
@@ -153,9 +155,11 @@ def meetup(request):
                 event_info['description'] = index['description']
                 event_info['start_time'] = index['name']
                 event_info['place'] = dict()
-                event_info['place']['state'] = index['place']['venue']['state']
-                event_info['place']['city'] = index['place']['venue']['city']
-                event_info['place']['street'] = index['place']['venue']['address_1']
+                #event_info['start_time'] = utc.astimezone(index['time'])
+                #print(index['venue'].keys())
+                event_info['place']['state'] = index['venue']['state']
+                event_info['place']['city'] = index['venue']['city']
+                event_info['place']['street'] = index['venue']['address_1']
                 event_info['source'] = 'Meetup'
             """if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
                 'location' in index['place'] and
