@@ -140,14 +140,16 @@ def meetup(request):
 	#print(r.content)
 	obj = r.json()
 	print(obj['meta'].keys())
-	print(obj['meta']['description'])
+	print(obj['meta']['title'])
+	print(obj['meta']['id'])
 	
 
 	for index in obj['meta']:
             print("Looking!")
-            if('title' in index):
+            if('id' in index):
                 print("inserting!!")
-                event_info['name'] = index['title']
+                #print(index['title'])
+                event_info['name'] = index['description']
                 event_info['source'] = 'Meetup'
                 #I can't seem to get the same datas. Does Meetup even have those?
             """if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
@@ -198,29 +200,14 @@ def eventbrite_call(request):
     	    	'q': "coding",
     	    	'venue.city': "seattle",
 	    	'venue.region': 'WA',
-    	    }
+                }
             r = requests.get('https://www.eventbriteapi.com/v3/events/search/', params=payload)
             print (r.content)
-            #obj = json.loads(r.content)
-            """for index in r.content:
-                print("Looking!")
-                if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
-                    'location' in index['place'] and
-                    'city' in index['place']['location'] and
-                    'street' in index['place']['location']):
-                    print("Inserting!")
-                    event_info['name'] = index['name']
-                    event_info['description'] = index['description']
-                    event_info['start_time'] = index['start_time']
-                    event_info['place'] = dict()
-                    event_info['place']['state'] = index['place']['location']['state']
-                    event_info['place']['city'] = index['place']['location']['city']
-                    event_info['place']['street'] = index['place']['location']['street']
-                    event_info['source'] = 'Eventbrite'"""
-    else:
-        print("deleted sad face")
-        # access token gone, delete it
-        del request.session['eventbrite_time']
-        del request.session['eventbrite_access_token']
+    	#I don't know why, but bumping this forward one breaks the code.
+    	else:
+	        print("deleted sad face")
+	        # access token gone, delete it
+	        del request.session['eventbrite_time']
+	        del request.session['eventbrite_access_token']
 
     return render(request, 'api/test.html')
