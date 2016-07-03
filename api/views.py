@@ -5,7 +5,7 @@ import requests
 import json
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.models import SocialAppManager
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,localtime
 import requests 
 from api.models import FacebookModel
 from api.serializer import FacebookSerializer
@@ -65,8 +65,8 @@ def test(request):
 	payload = {
 				'client_id': '003a3ad3-9d6a-493d-820e-6738c415f350',
 				'client_secret': '8q7HUa7EcTcDBD668hPbg2t',
-				'code': token,
-				'redirect_uri': 'http://localhost:8000/api/test',
+				'code': token
+,				'redirect_uri': 'http://localhost:8000/api/test',
 				'grant_type': 'authorization_code',
 			  }
 	r = requests.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', data=payload)
@@ -139,19 +139,24 @@ def meetup(request):
 	r = requests.get("https://api.meetup.com/2/open_events", params=body)
 	#print(r.content)
 	obj = r.json()
-	print(obj['meta'].keys())
-	print(obj['meta']['title'])
-	print(obj['meta']['id'])
-	
+	print('Result keys:')
+	print(obj['results'][0].keys())
+	print(localtime(obj['results'][0]['time']))
 
-	for index in obj['meta']:
-            print("Looking!")
+	for index in obj['results']:	
+            #print(index)
             if('id' in index):
-                print("inserting!!")
+                print("inserting")
                 #print(index['title'])
-                event_info['name'] = index['description']
+                #print(index['description'])
+                event_info['name'] = index['name']
+                event_info['description'] = index['description']
+                event_info['start_time'] = index['name']
+                event_info['place'] = dict()
+                event_info['place']['state'] = index['place']['venue']['state']
+                event_info['place']['city'] = index['place']['venue']['city']
+                event_info['place']['street'] = index['place']['venue']['address_1']
                 event_info['source'] = 'Meetup'
-                #I can't seem to get the same datas. Does Meetup even have those?
             """if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
                 'location' in index['place'] and
                 'city' in index['place']['location'] and
