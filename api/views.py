@@ -151,6 +151,9 @@ def meetup(request):
             if('venue' in index and 
             	'state' in index['venue']):
                 event_time_struct = localtime(index['time']/1000)
+                #Meetup gives time in milliseconds from epoch, so it needs to be 
+                #divided by 1000 so it's in seconds.
+
                 #These if statements parse through event_time_struct and put it in
                 #"%Y-%m-%dT%H:%M:%S" form. It also adds a 0 if the month or day are
                 #single digit.
