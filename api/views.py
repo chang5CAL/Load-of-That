@@ -41,9 +41,9 @@ def index(request):
                 'location' in index['place'] and
                 'city' in index['place']['location'] and
                 'street' in index['place']['location']):
-                
                 event_info['name'] = index['name']
                 event_info['description'] = index['description']
+                #event_info['start_time'] = index['start_time']
                 event_info['start_time'] = index['start_time']
                 event_info['place'] = dict()
                 event_info['place']['state'] = index['place']['location']['state']
@@ -143,37 +143,48 @@ def meetup(request):
 	print('Result keys:')
 	print(obj['results'][0].keys())
 	print(obj['results'][0]['time'])
+	print(localtime(obj['results'][0]['time']/1000))
 
 	for index in obj['results']:	
+            #print(localtime(index['time']))
             #print(index)
             if('venue' in index and 
             	'state' in index['venue']):
-                print("inserting")
+                event_time_struct = localtime(index['time']/1000)
+                if(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday < 10):
+	                event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
+	                	str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
+	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+	                	":"+str(event_time_struct.tm_sec))
+                elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday < 10):
+	                event_time_year_form = (str(event_time_struct.tm_year)+"-"+
+	                	str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
+	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+	                	":"+str(event_time_struct.tm_sec))
+                elif(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday >= 10):
+	                event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
+	                	str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
+	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+	                	":"+str(event_time_struct.tm_sec))
+                elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday >= 10):
+	                event_time_year_form = (str(event_time_struct.tm_year)+"-"+
+	                	str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
+	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+	                	":"+str(event_time_struct.tm_sec))
+                
+                event_time_object = datetime.strptime(event_time_year_form, "%Y-%m-%dT%H:%M:%S")
                 #print(index['title'])
                 #print(index['description'])
                 event_info['name'] = index['name']
                 event_info['description'] = index['description']
                 event_info['start_time'] = index['name']
                 event_info['place'] = dict()
-                #event_info['start_time'] = localtime(index['time'])
+                event_info['start_time'] = event_time_object
                 #print(index['venue'].keys())
                 event_info['place']['state'] = index['venue']['state']
                 event_info['place']['city'] = index['venue']['city']
                 event_info['place']['street'] = index['venue']['address_1']
                 event_info['source'] = 'Meetup'
-            """if (datetime.now() < datetime.strptime(index['start_time'][:-5], "%Y-%m-%dT%H:%M:%S") and
-                'location' in index['place'] and
-                'city' in index['place']['location'] and
-                'street' in index['place']['location']):
-                print("Inserting!")
-                event_info['name'] = index['title']
-                event_info['description'] = index['description']
-                event_info['start_time'] = index['start_time']
-                event_info['place'] = dict()
-                event_info['place']['state'] = index['place']['location']['state']
-                event_info['place']['city'] = index['place']['location']['city']
-                event_info['place']['street'] = index['place']['location']['street']
-                event_info['source'] = 'Meetup'"""
 	return render(request, 'api/test.html')
 
 def eventbrite(request):
