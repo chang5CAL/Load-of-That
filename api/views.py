@@ -151,22 +151,29 @@ def meetup(request):
             if('venue' in index and 
             	'state' in index['venue']):
                 event_time_struct = localtime(index['time']/1000)
+                #These if statements parse through event_time_struct and put it in
+                #"%Y-%m-%dT%H:%M:%S" form. It also adds a 0 if the month or day are
+                #single digit.
                 if(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday < 10):
+                	#If both month and day are single digit
 	                event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
 	                	str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
 	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
 	                	":"+str(event_time_struct.tm_sec))
                 elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday < 10):
+                	#If only the day is single digited
 	                event_time_year_form = (str(event_time_struct.tm_year)+"-"+
 	                	str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
 	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
 	                	":"+str(event_time_struct.tm_sec))
                 elif(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday >= 10):
+                	#If only the month is single digited
 	                event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
 	                	str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
 	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
 	                	":"+str(event_time_struct.tm_sec))
                 elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday >= 10):
+                	#If neither the month nor the day is single digited.
 	                event_time_year_form = (str(event_time_struct.tm_year)+"-"+
 	                	str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
 	                	str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
