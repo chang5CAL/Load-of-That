@@ -10,7 +10,7 @@ import requests
 from api.models import FacebookModel
 from api.serializer import FacebookSerializer
 from rest_framework import generics
-from dateutil.tz import tzutc, tzlocal
+from time import localtime
 
 class FacebookList():
     queryset = FacebookModel.objects.all()
@@ -155,7 +155,7 @@ def meetup(request):
                 event_info['description'] = index['description']
                 event_info['start_time'] = index['name']
                 event_info['place'] = dict()
-                #event_info['start_time'] = utc.astimezone(index['time'])
+                #event_info['start_time'] = localtime(index['time'])
                 #print(index['venue'].keys())
                 event_info['place']['state'] = index['venue']['state']
                 event_info['place']['city'] = index['venue']['city']
