@@ -230,7 +230,7 @@ def eventbrite_call(request):
 				'token': access_token,
 				'q': "coding",
 				'venue.city': "seattle",
-			'venue.region': 'WA',
+				'venue.region': 'WA',
 				}
 			r = requests.get('https://www.eventbriteapi.com/v3/events/search/', params=payload)
 			#print (r.content)
@@ -239,10 +239,9 @@ def eventbrite_call(request):
 			print(obj['events'][0]['venue_id'])
 			for index in obj['events']:
 				v_payload = {
-					'venue_get' : index['venue_id'],
-					'app_key' : 'BVSGCXUYLLFDSPVC5H',
+					'token' : access_token,
 				}
-				v = requests.get('https://www.eventbrite.com/json/venue_get', params=v_payload)
+				v = requests.get('https://www.eventbriteapi.com/v3/venues/' + index['venue_id'], params=v_payload)
 				print(v)
 				v_obj = v.json()
 				print(v_obj)
