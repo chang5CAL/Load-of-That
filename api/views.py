@@ -277,6 +277,7 @@ def eventbrite_call(request):
 				event_info['place']['city'] = v_obj['address']['city']
 				event_info['place']['street'] = v_obj['address']['address_1']
 				event_info['source'] = 'Eventbrite'
+				event_list.append(event_info)
 		else:
 			print("deleted sad face")
 			# access token gone, delete it
