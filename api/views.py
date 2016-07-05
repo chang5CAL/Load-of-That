@@ -205,6 +205,7 @@ def meetup(request):
 				event_info['name'] = index['name']
 				if 'description' in index:
 					event_info['description'] = index['description']
+<<<<<<< HEAD
 				event_info['start_time'] = event_time_object
 				event_info['place'] = dict()
 				event_info['place']['state'] = index['venue']['state']
@@ -214,6 +215,16 @@ def meetup(request):
 				event_list.append(event_info)
 				#rest_get = Facebook(name=event_info['name'])
 
+=======
+					event_info['start_time'] = event_time_object
+					event_info['place'] = dict()
+					event_info['place']['state'] = index['venue']['state']
+					event_info['place']['city'] = index['venue']['city']
+					event_info['place']['street'] = index['venue']['address_1']
+					event_info['source'] = 'Meetup'
+					event_list.append(event_info)
+					#rest_get = Facebook(name=event_info['name'])
+>>>>>>> 92b84080d0eadf17ca2891c17f44547025496e68
 	#rest_get = Facebook(name='name123445435q23tet24t')
 	#rest_get.save()
 	#rest_get = Facebook.objects.all()

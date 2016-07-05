@@ -30,6 +30,18 @@ var Container = React.createClass ({
 		});
 	},
 	newQuery: function(city, state, country, type) {
+		$.ajax({
+			url: "/api/eventbrite_call",
+			method: "GET",
+			dataType: "json",
+			success: function(result) {
+				console.log("success");
+				console.log(result);
+			},
+			error: function(err, res, ros) {
+				console.log(res);
+			}
+		})
 		var newEvents = [
 			{id: 4, title: "Tokyo", url:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png", image:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png"}, 
 			{id: 5, title: "United States", url: "https://www.usa.gov/about-the-us", image: "http://i.infopls.com/images/states_imgmap.gif"}, 
