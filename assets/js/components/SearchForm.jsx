@@ -14,16 +14,29 @@ var style = {
 var SearchForm = React.createClass ({
 	getInitialState: function() {
 		return {
-			location: "",
+			city: "",
+			state: "",
+			country: "",
 			type: "",
+
 		};
 	},
 	propTypes: {
 		newQuery: React.PropTypes.func.isRequired,
 	},
-    handleLocationChange: function(e) {
+    handleCityChange: function(e) {
     	this.setState({
-    		location: e.target.value,
+    		city: e.target.value,
+    	});
+    },
+    handleStateChange: function(e) {
+    	this.setState({
+    		state: e.target.value,
+    	});
+    },
+    handleCountryChange: function(e) {
+    	this.setState({
+    		country: e.target.value,
     	});
     },
     handleTypeChange: function(e) {
@@ -37,18 +50,24 @@ var SearchForm = React.createClass ({
 	            <form className="form-inline">
 	            	<Row className="show-grid">
 		            	<FormGroup>
-		            		<Col md={4}>
+		            		<Col md={2}>
 		            			<ControlLabel style={style}>Location </ControlLabel>
 		            		</Col>
-		            		<Col md={4}>
-		            			<FormControl type="text" placeholder="Location" value={this.state.location} onChange={this.handleLocationChange}></FormControl>
+		            		<Col md={3} className="load-search-form-inputs">
+		            			<FormControl type="text" placeholder="City" value={this.state.city} onChange={this.handleCityChange}></FormControl>
+		            		</Col>
+		            		<Col md={3}>
+		            			<FormControl type="text" placeholder="State/Territory" value={this.state.state} onChange={this.handleStateChange}></FormControl>
+		            		</Col>
+		            		<Col md={3}>
+		            			<FormControl type="text" placeholder="Country" value={this.state.country} onChange={this.handleCountryChange}></FormControl>
 		            		</Col>
 		            	</FormGroup>
 	            	</Row>
 	            	<hr />
 	            	<Row className="show-grid">
 		            	<FormGroup>
-		            		<Col md={4}>
+		            		<Col md={5} className="load-search-form-activity-label">
 		            			<ControlLabel style={style}>Activity </ControlLabel>
 		            		</Col>
 		            		<Col md={4}>
@@ -58,7 +77,7 @@ var SearchForm = React.createClass ({
 	            	</Row>
 	            </form>
 	            <hr />
-	            <Button bsStyle="default" onClick={this.props.newQuery.bind(null, this.state.location, this.state.type)}><Glyphicon glyph="search" /><b> Search</b></Button>
+	            <Button bsStyle="default" onClick={this.props.newQuery.bind(null, this.state.city, this.state.state, this.state.country, this.state.type)}><Glyphicon glyph="search" /><b> Search</b></Button>
 	        </div>
         )
     }

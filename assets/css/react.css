@@ -131,6 +131,14 @@ SEARCH FORM
 	padding-left: 10px;
 }
 
+.load-search-form-inputs {
+	padding-right: 40px;
+}
+
+.load-search-form-activity-label {
+	padding-right: 20px;
+}
+
 /*
 
 ACTIVITIES
