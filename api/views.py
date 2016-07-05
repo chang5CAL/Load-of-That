@@ -6,24 +6,38 @@ import json
 from allauth.socialaccount.models import SocialToken
 from allauth.socialaccount.models import SocialAppManager
 from datetime import datetime, timedelta
-import requests 
-from api.models import FacebookModel
+import requests
+
+# REST API Libraries
+from api.models import Facebook
 from api.serializer import FacebookSerializer
 from rest_framework import generics
 from time import localtime
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from django.http import HttpResponse
+
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
 
 class FacebookList():
-	queryset = FacebookModel.objects.all()
+	queryset = Facebook.objects.all()
 	serializer_class = FacebookSerializer
 	
 
 class FacebookDetail():
-	queryset = FacebookModel.objects.all()
+	queryset = Facebook.objects.all()
 	serializer_class = FacebookSerializer
 
 def index(request):
 	# template = loader.get_template('templates/test.html')
-	event_info = dict()
+	event_list = []
 	
 	print(request.user.is_authenticated())
 	if request.user.is_authenticated():
@@ -41,15 +55,17 @@ def index(request):
 				'location' in index['place'] and
 				'city' in index['place']['location'] and
 				'street' in index['place']['location']):
+				event_info = dict()
 				event_info['name'] = index['name']
-				event_info['description'] = index['description']
+				event_info['description'] = (index['description'])
 				#event_info['start_time'] = index['start_time']
-				event_info['start_time'] = index['start_time']
-				event_info['place'] = dict()
-				event_info['place']['state'] = index['place']['location']['state']
-				event_info['place']['city'] = index['place']['location']['city']
-				event_info['place']['street'] = index['place']['location']['street']
-				event_info['source'] = 'Facebook'
+				event_info['start_time'] = (index['start_time'])
+				event_info['place'] = (dict())
+				event_info['place']['state'] = (index['place']['location']['state'])
+				event_info['place']['city'] = (index['place']['location']['city'])
+				event_info['place']['street'] = (index['place']['location']['street'])
+				event_info['source'] = ('Facebook')
+				event_list.append(event_info)
 				#event_info['image']
 		
 		
@@ -57,8 +73,8 @@ def index(request):
 		#print (request.GET['code'])
 		#print(token[0])
 
-			
-	return render(request, 'api/index.html')
+	#rest_get = FacebookModel(event_list)
+	return JSONResponse(event_list)
 # Redirection page for outlook to get access token
 def test(request):
 	token = request.GET["code"]
@@ -136,14 +152,11 @@ def meetup(request):
 		"state": "wa",
 		"page": 20,
 	}
-	event_info = dict()
+	rest_get = None
+	event_list = []
 	r = requests.get("https://api.meetup.com/2/open_events", params=body)
 	#print(r.content)
 	obj = r.json()
-	print('Result keys:')
-	print(obj['results'][0].keys())
-	print(obj['results'][0]['time'])
-	print(localtime(obj['results'][0]['time']/1000))
 
 	for index in obj['results']:	
 			#print(localtime(index['time']))
@@ -186,16 +199,26 @@ def meetup(request):
 				event_time_object = datetime.strptime(event_time_year_form, "%Y-%m-%dT%H:%M:%S")
 				#print(index['title'])
 				#print(index['description'])
+				event_info = dict()
 				event_info['name'] = index['name']
 				event_info['description'] = index['description']
-				event_info['place'] = dict()
 				event_info['start_time'] = event_time_object
-				#print(index['venue'].keys())
+				event_info['place'] = dict()
 				event_info['place']['state'] = index['venue']['state']
 				event_info['place']['city'] = index['venue']['city']
 				event_info['place']['street'] = index['venue']['address_1']
 				event_info['source'] = 'Meetup'
-	return render(request, 'api/test.html')
+				event_list.append(event_info)
+				rest_get = Facebook(name=event_info['name'])
+
+	#rest_get = Facebook(name='name123445435q23tet24t')
+	#rest_get.save()
+	rest_get = Facebook.objects.all()
+	rest_serializer = FacebookSerializer(event_list[0])
+	print(rest_serializer.data)
+	print(Facebook.objects.all())
+	return JSONResponse(event_list)
+
 
 def eventbrite(request):
 	token = request.GET["code"]
@@ -216,7 +239,7 @@ def eventbrite(request):
 	return HttpResponseRedirect("/")
 
 def eventbrite_call(request):
-	event_info = dict()
+	event_list = []
 	print(request.session.get('eventbrite_time'))
 	if (request.session.get('eventbrite_time')):
 		time = request.session['eventbrite_time']
@@ -242,19 +265,14 @@ def eventbrite_call(request):
 					'token' : access_token,
 				}
 				v = requests.get('https://www.eventbriteapi.com/v3/venues/' + index['venue_id'], params=v_payload)
-				#print(v)
+				#Need to request venue in order to get place information from eventbrite.
 				v_obj = v.json()
-				#print(v_obj['address'].keys())
-				#print(v_obj['address']['region'])
-				#print(v_obj['address']['city'])
-				#print(v_obj['address']['address_1'])
-				#I don't know what the index is for this.
+
+				event_info = dict()
 				event_info['name'] = index['name']
 				event_info['description'] = index['description']
 				event_info['start_time'] = datetime.strptime(index['start']['utc'], "%Y-%m-%dT%H:%M:%SZ")
 				event_info['place'] = dict()
-				#Place is probably something about venue, but I don't know
-				#what specifically.
 				event_info['place']['state'] = v_obj['address']['region']
 				event_info['place']['city'] = v_obj['address']['city']
 				event_info['place']['street'] = v_obj['address']['address_1']
@@ -265,4 +283,4 @@ def eventbrite_call(request):
 			del request.session['eventbrite_time']
 			del request.session['eventbrite_access_token']
 
-	return render(request, 'api/test.html')
+	return JSONResponse(event_list)
