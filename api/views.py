@@ -199,18 +199,18 @@ def meetup(request):
 				event_time_object = datetime.strptime(event_time_year_form, "%Y-%m-%dT%H:%M:%S")
 				#print(index['title'])
 				#print(index['description'])
-				if('description' in index):
-					event_info = dict()
-					event_info['name'] = index['name']
+				event_info = dict()
+				event_info['name'] = index['name']
+				if 'description' in index:
 					event_info['description'] = index['description']
-					event_info['start_time'] = event_time_object
-					event_info['place'] = dict()
-					event_info['place']['state'] = index['venue']['state']
-					event_info['place']['city'] = index['venue']['city']
-					event_info['place']['street'] = index['venue']['address_1']
-					event_info['source'] = 'Meetup'
-					event_list.append(event_info)
-					#rest_get = Facebook(name=event_info['name'])
+				event_info['start_time'] = event_time_object
+				event_info['place'] = dict()
+				event_info['place']['state'] = index['venue']['state']
+				event_info['place']['city'] = index['venue']['city']
+				event_info['place']['street'] = index['venue']['address_1']
+				event_info['source'] = 'Meetup'
+				event_list.append(event_info)
+				#rest_get = Facebook(name=event_info['name'])
 
 	#rest_get = Facebook(name='name123445435q23tet24t')
 	#rest_get.save()
