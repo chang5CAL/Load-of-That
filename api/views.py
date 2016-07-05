@@ -236,8 +236,16 @@ def eventbrite_call(request):
 			#print (r.content)
 			obj = r.json()
 			print(obj['events'][0].keys())
-			print(obj['events'][0]['status'])
+			print(obj['events'][0]['venue_id'])
 			for index in obj['events']:
+				v_payload = {
+					'venue_get' : index['venue_id'],
+					'app_key' : 'BVSGCXUYLLFDSPVC5H',
+				}
+				v = requests.get('https://www.eventbrite.com/json/venue_get', params=v_payload)
+				print(v)
+				v_obj = v.json()
+				print(v_obj)
 				#I don't know what the index is for this.
 				event_info['name'] = index['name']
 				event_info['description'] = index['description']
