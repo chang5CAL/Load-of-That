@@ -60,6 +60,7 @@ def index(request):
 				event_info['description'] = (index['description'])
 				#event_info['start_time'] = index['start_time']
 				event_info['start_time'] = (index['start_time'])
+				#event_info['end_time'] = (index['end_time'])
 				event_info['place'] = (dict())
 				event_info['place']['state'] = (index['place']['location']['state'])
 				event_info['place']['city'] = (index['place']['location']['city'])
@@ -67,6 +68,7 @@ def index(request):
 				event_info['source'] = ('Facebook')
 				event_list.append(event_info)
 				#event_info['image']
+				#event_info['url']
 		
 		
 		
@@ -270,8 +272,8 @@ def eventbrite_call(request):
 				v_obj = v.json()
 
 				event_info = dict()
-				event_info['name'] = index['name']
-				event_info['description'] = index['description']
+				event_info['name'] = index['name']['text']
+				event_info['description'] = index['description']['text']
 				event_info['start_time'] = datetime.strptime(index['start']['utc'], "%Y-%m-%dT%H:%M:%SZ")
 				event_info['place'] = dict()
 				event_info['place']['state'] = v_obj['address']['region']
