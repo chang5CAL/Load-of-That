@@ -201,7 +201,7 @@ def meetup(request):
 				#print(index['description'])
 				event_info = dict()
 				event_info['name'] = index['name']
-				event_info['description'] = index['description']
+				event_info['description'] = index.get('description')
 				event_info['start_time'] = event_time_object
 				event_info['place'] = dict()
 				event_info['place']['state'] = index['venue']['state']
