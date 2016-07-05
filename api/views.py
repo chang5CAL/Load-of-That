@@ -310,6 +310,7 @@ def eventbrite_call(request):
 				event_info['name'] = index['name']['text']
 				event_info['description'] = index['description']['text']
 				event_info['start_time'] = datetime.strptime(index['start']['utc'], "%Y-%m-%dT%H:%M:%SZ")
+				event_info['end_time'] = datetime.strptime(index['end']['utc'], "%Y-%m-%dT%H:%M:%SZ")
 				event_info['place'] = dict()
 				event_info['place']['state'] = v_obj['address']['region']
 				event_info['place']['city'] = v_obj['address']['city']
