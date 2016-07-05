@@ -31,7 +31,7 @@ var Container = React.createClass ({
 	},
 	newQuery: function(city, state, country, type) {
 		$.ajax({
-			url: "/api/eventbrite_call",
+			url: "/api/",
 			method: "GET",
 			dataType: "json",
 			success: function(result) {
