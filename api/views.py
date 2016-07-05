@@ -235,16 +235,19 @@ def eventbrite_call(request):
 			r = requests.get('https://www.eventbriteapi.com/v3/events/search/', params=payload)
 			#print (r.content)
 			obj = r.json()
-			print(obj['events'][0].keys())
-			print(obj['events'][0]['venue_id'])
+			#print(obj['events'][0].keys())
+			#print(obj['events'][0]['venue_id'])
 			for index in obj['events']:
 				v_payload = {
 					'token' : access_token,
 				}
 				v = requests.get('https://www.eventbriteapi.com/v3/venues/' + index['venue_id'], params=v_payload)
-				print(v)
+				#print(v)
 				v_obj = v.json()
-				print(v_obj)
+				#print(v_obj['address'].keys())
+				#print(v_obj['address']['region'])
+				#print(v_obj['address']['city'])
+				#print(v_obj['address']['address_1'])
 				#I don't know what the index is for this.
 				event_info['name'] = index['name']
 				event_info['description'] = index['description']
@@ -252,9 +255,9 @@ def eventbrite_call(request):
 				event_info['place'] = dict()
 				#Place is probably something about venue, but I don't know
 				#what specifically.
-				"""event_info['place']['state'] = index['venue']['state']
-				event_info['place']['city'] = index['venue']['city']
-				event_info['place']['street'] = index['venue']['address_1']"""
+				event_info['place']['state'] = v_obj['address']['region']
+				event_info['place']['city'] = v_obj['address']['city']
+				event_info['place']['street'] = v_obj['address']['address_1']
 				event_info['source'] = 'Eventbrite'
 		else:
 			print("deleted sad face")
