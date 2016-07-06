@@ -59,15 +59,17 @@ def index(request):
 				event_info['description'] = (index['description'])
 				#event_info['start_time'] = index['start_time']
 				event_info['start_time'] = (index['start_time'])
-				#event_info['end_time'] = (index['end_time'])
+
+				event_info['end_time'] = ""
+				event_info['url'] = ""
+				event_info['image'] = ""
+				#Facebook does not include these.
 				event_info['place'] = (dict())
 				event_info['place']['state'] = (index['place']['location']['state'])
 				event_info['place']['city'] = (index['place']['location']['city'])
 				event_info['place']['street'] = (index['place']['location']['street'])
 				event_info['source'] = ('Facebook')
 				event_list.append(event_info)
-				#event_info['image']
-				#event_info['url']
 		
 		
 		
@@ -243,7 +245,7 @@ def meetup(request):
 				event_info['place']['city'] = index['venue']['city']
 				event_info['place']['street'] = index['venue']['address_1']
 				event_info['url'] = index['event_url']
-				#event_info['image'] = index['image']
+				event_info['image'] = ""
 				event_info['source'] = 'Meetup'
 				event_list.append(event_info)
 				#rest_get = Facebook(name=event_info['name'])
@@ -311,6 +313,8 @@ def eventbrite_call(request):
 				event_info['description'] = index['description']['text']
 				event_info['start_time'] = datetime.strptime(index['start']['utc'], "%Y-%m-%dT%H:%M:%SZ")
 				event_info['end_time'] = datetime.strptime(index['end']['utc'], "%Y-%m-%dT%H:%M:%SZ")
+				event_info['url'] = ""
+				event_info['image'] = ""
 				event_info['place'] = dict()
 				event_info['place']['state'] = v_obj['address']['region']
 				event_info['place']['city'] = v_obj['address']['city']
