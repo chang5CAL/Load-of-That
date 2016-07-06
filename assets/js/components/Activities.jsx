@@ -7,6 +7,7 @@ var Activities = React.createClass ({
 		events: React.PropTypes.array.isRequired,
 		remove: React.PropTypes.func.isRequired,
 		addEvent: React.PropTypes.func.isRequired,
+        giveLink: React.PropTypes.func.isRequired,
 	},
 
 	getDefaultProps: function() {
@@ -22,16 +23,19 @@ var Activities = React.createClass ({
     		if (event.image != "") {
     			image_url = event.image;
     		}
+            //console.log(event.place);
         	return (<div key={event.name}><Activity 
         					 name={event.name}
                              description={event.description}
                              start_time={event.start_time}
                              end_time={event.end_time} 
+                             place={event.place}
         					 url={event.url} 
-        					 image={event.image}
+        					 image={image_url}
         					 remove={this.props.remove}
         					 add={this.props.addEvent}
-        					 event={event} /><hr className="activity-hr" /></div>);
+        					 event={event}
+                             giveLink={this.props.giveLink} /><hr className="activity-hr" /></div>);
         }.bind(this));
         return (
         	<div className="load-activities">

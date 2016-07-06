@@ -11,11 +11,7 @@ var Container = React.createClass ({
 	getInitialState: function() {
 		return {
 			// TODO change from list to a dictionary of key: object 
-			events: [
-					 {name: "Gameworks", description: "", start_time: "", end_time: "", url:"http://gameworks.com", image: "http://www.newportonthelevee.com/Portals/newportonthelevee/Images/Directory/Gameworks.png"}, 
-					 {name: "Dave and Busters", description: "", start_time: "", end_time: "", url: "http://www.daveandbusters.com/", image: "http://www.daveandbusters.com/media/1023/logo_no_shadow.png"}, 
-					 {name: "Disney Land", description: "", start_time: "", end_time: "", url: "https://disneyland.disney.go.com/", image: "https://s-media-cache-ak0.pinimg.com/236x/e0/71/0d/e0710d8c6cf4c5b707fd55375e9c740c.jpg"},
-					],
+			events: [],
 			listOfEvents: []
 		};
 	},
@@ -29,6 +25,8 @@ var Container = React.createClass ({
 		});
 	},
 	ajaxCall: function(url) {
+		var _this = this;
+		console.log("called query");
 		$.ajax({
 			url: "/api/" + url,
 			method: "GET",
@@ -36,8 +34,8 @@ var Container = React.createClass ({
 			success: function(result) {
 				console.log("success");
 				console.log(result);
-				this.setState({
-					events: this.state.events.concat([result]),
+				_this.setState({
+					events: _this.state.events.concat(result),
 				});
 			},
 			error: function(err, res, ros) {
@@ -46,16 +44,21 @@ var Container = React.createClass ({
 		});
 	},
 	newQuery: function(city, state, country, type) {
-		/*if (!document.getElementById("facebook-login")) {
-			this.ajaxCall("");
+		this.setState({
+			events: [],
+		})
+		if (!document.getElementById("facebook-login")) {
+			console.log("calling facebook");
+			//this.ajaxCall("");
+		}
+		
+		if (!document.getElementById("eventbrite-login")) {
+			console.log("calling eventbrite");
+			//this.ajaxCall("eventbrite_call")
 		}
 
-		if (!document.getElementById("eventbrite-login")) {
-			this.ajaxCall("eventbrite_call")
-		}*/
-
-		this.ajaxCall("meetup")
-		var newEvents = [
+		this.ajaxCall("meetup");
+		/*var newEvents = [
 			{	
 				name: "Tokyo", 
 				description: "", 
@@ -69,7 +72,16 @@ var Container = React.createClass ({
 		];
 		this.setState({
 			events: newEvents,
-		});
+		});*/
+	},
+	giveLink: function(event) {
+		console.log("calling give link");
+		console.log(event);
+		if (event.url != "") {
+			return (<a href="{event.url}">{event.name}</a>);
+		} else {
+			return (event.name);
+		}
 	},
 	addEvent: function(event) {
 		this.setState({
@@ -156,8 +168,12 @@ var Container = React.createClass ({
 	            <LeftCol events={this.state.events} 
 	            		 remove={this.remove} 
 	            		 newQuery={this.newQuery} 
-	            		 addEvent={this.addEvent} />
-	            <RightCol listOfEvents={this.state.listOfEvents} addToCalendar={this.addToCalendar}/>
+	            		 addEvent={this.addEvent}
+	            		 giveLink={this.giveLink} />
+	            <RightCol 
+	            		listOfEvents={this.state.listOfEvents} 
+	            		addToCalendar={this.addToCalendar}
+	            		giveLink={this.giveLink}/>
 	        </div>
         )
     }

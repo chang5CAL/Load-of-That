@@ -6,6 +6,7 @@ var RightCol = React.createClass ({
 	propTypes: {
 		listOfEvents: React.PropTypes.array.isRequired,
 		addToCalendar: React.PropTypes.func.isRequired,
+		giveLink: React.PropTypes.func.isRequired,
 	},
 	componentDidMount: function() {
 		this.startPolling()
@@ -55,7 +56,7 @@ var RightCol = React.createClass ({
     	var listEvents = this.props.listOfEvents.map(function(event) {
         	return (
         		<div key={event.name}>
-	        		<AddedEvents event={event} />
+	        		<AddedEvents event={event} giveLink={this.props.giveLink} />
 	        	</div>
         	);
         }.bind(this));

@@ -8,6 +8,7 @@ var LeftCol = React.createClass ({
 		remove: React.PropTypes.func.isRequired,
 		newQuery: React.PropTypes.func.isRequired,
 		addEvent: React.PropTypes.func.isRequired,
+		giveLink: React.PropTypes.func.isRequired,
 	},
     render: function() {
         return (
@@ -16,7 +17,8 @@ var LeftCol = React.createClass ({
 	            	<SearchForm newQuery={this.props.newQuery} />
 	            	<Activities events={this.props.events} 
 	            				remove={this.props.remove} 
-	            				addEvent={this.props.addEvent} />
+	            				addEvent={this.props.addEvent}
+	            				giveLink={this.props.giveLink} />
 	            </div>
 	        </div>
         )
