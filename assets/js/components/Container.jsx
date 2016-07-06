@@ -24,13 +24,14 @@ var Container = React.createClass ({
 			events: newEvents, 
 		});
 	},
-	ajaxCall: function(url) {
+	ajaxCall: function(url, json) {
 		var _this = this;
 		console.log("called query");
 		$.ajax({
 			url: "/api/" + url,
 			method: "GET",
 			dataType: "json",
+			data: json,
 			success: function(result) {
 				console.log("success");
 				console.log(result);
@@ -47,17 +48,22 @@ var Container = React.createClass ({
 		this.setState({
 			events: [],
 		})
+		var request_data = {
+			city: city,
+			state: state,
+			country: country,
+			type: type,
+		}
+		json = JSON.stringify(request_data)
 		if (!document.getElementById("facebook-login")) {
-			console.log("calling facebook");
-			//this.ajaxCall("");
+			this.ajaxCall("", json);
 		}
 		
 		if (!document.getElementById("eventbrite-login")) {
-			console.log("calling eventbrite");
-			//this.ajaxCall("eventbrite_call")
+			this.ajaxCall("eventbrite_call", json);
 		}
 
-		this.ajaxCall("meetup");
+		this.ajaxCall("meetup", json);
 		/*var newEvents = [
 			{	
 				name: "Tokyo", 
