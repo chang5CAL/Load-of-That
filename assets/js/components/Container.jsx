@@ -78,7 +78,7 @@ var Container = React.createClass ({
 		console.log("calling give link");
 		console.log(event);
 		if (event.url != "") {
-			return (<a href="{event.url}">{event.name}</a>);
+			return (<a href={event.url} target='_blank'>{event.name}</a>);
 		} else {
 			return (event.name);
 		}
