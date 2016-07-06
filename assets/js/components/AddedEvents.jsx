@@ -11,8 +11,8 @@ var AddedEvents = React.createClass ({
         startMinutes = start.getMinutes() < 10 ? "0" + start.getMinutes() : start.getMinutes();
         endMinutes = end.getMinutes() < 10 ? "0" + end.getMinutes() : end.getMinutes();
         
-        startDate = start.getMonth() + "/" + start.getDate() + "/" + start.getFullYear() + " " + start.getHours() + ":" + startMinutes;
-        endDate = end.getMonth() + "/" + end.getDate() + "/" + end.getFullYear() + " " + end.getHours() + ":" + endMinutes;
+        startDate = start.getMonth() + "/" + start.getDate() + "/" + start.getFullYear() + " " + start.toLocaleTimeString();
+        endDate = end.getMonth() + "/" + end.getDate() + "/" + end.getFullYear() + " " + end.toLocaleTimeString();
         
         return (
     		<div>

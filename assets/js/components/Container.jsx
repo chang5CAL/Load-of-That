@@ -68,15 +68,13 @@ var Container = React.createClass ({
 				image:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png"}, 
 			{name: "United States", description: "", start_time: "", end_time: "", url: "https://www.usa.gov/about-the-us", image: "http://i.infopls.com/images/states_imgmap.gif"}, 
 			{name: "Spain", description: "", start_time: "", end_time: "", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
-		    {name: "Spain2", description: "", start_time: "", end_time: "", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
+			{name: "Spain2", description: "", start_time: "", end_time: "", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
 		];
 		this.setState({
 			events: newEvents,
 		});*/
 	},
 	giveLink: function(event) {
-		console.log("calling give link");
-		console.log(event);
 		if (event.url != "") {
 			return (<a href={event.url} target='_blank'>{event.name}</a>);
 		} else {
@@ -104,56 +102,64 @@ var Container = React.createClass ({
 			console.log(type);
 			console.log("add to calendar called");
 
-			var event = {
-			  'summary': 'Google I/O 2015',
-			  'location': '800 Howard St., San Francisco, CA 94103',
-			  'description': 'A chance to hear more about Google\'s developer products.',
-			  'start': {
-			    'dateTime': '2016-07-28T09:00:00-07:00',
-			    'timeZone': 'America/Los_Angeles'
-			  },
-			  'end': {
-			    'dateTime': '2016-07-28T17:00:00-07:00',
-			    'timeZone': 'America/Los_Angeles'
-			  },
-			};
 
 			for (var i = 0; i < this.state.listOfEvents.length; i++) {
+				var payload = {
+					'summary': 'Google I/O 2015',
+					'location': '800 Howard St., San Francisco, CA 94103',
+					'description': 'A chance to hear more about Google\'s developer products.',
+					'start': {
+						'dateTime': '2016-07-28T09:00:00-07:00',
+						'timeZone': 'America/Los_Angeles'
+					},
+					'end': {
+						'dateTime': '2016-07-28T17:00:00-07:00',
+						'timeZone': 'America/Los_Angeles'
+					},
+				};
+				event = this.state.listOfEvents[i];
+
 				if (type == "Outlook") {
 					console.log("Outlook");
+					$.ajax({
+						type: "POST",
+						url: 'https://outlook.office.com/api/v2.0/me/events',
+						headers: {'Authorization': 'Bearer ' + token,
+								  'Content-Type': 'application/json',
+								 },
+						data: JSON.stringify(payload),
+						'error': function(jqXHR, textStatus, errorThrown) {
+							console.log(jqXHR)
+						},
+						'success': function(res) {
+							console.log(res);
+							alert("success");
+						}	
+					});
 				} else if (type == "Google Calendar") {
-					console.log("Google Calendar");
+					payload["summary"] = event.name;
+					payload['location'] = event.place.street + ", " + event.place.city + ", " + event.place.state
+					payload['description'] = jQuery(event.description).text();
+					payload['start'] = {};
+					payload['start']['dateTime'] = event.start_time;
+					payload['start']['timeZone'] = 'America/Los_Angeles'
+					payload['end'] = {};
+					payload['end']['dateTime'] = event.end_time;
+					payload['end']['timeZone'] = 'America/Los_Angeles'
+
 					gapi.client.load('calendar', 'v3').then(function() {
-			           // Step 5: Assemble the API request
-			        	console.log("loading client");
-			        	var request = gapi.client.calendar.events.insert({
-			            	'calendarId': 'primary',
-			            	'resource': JSON.stringify(event)
-			        	});
-			            // Step 6: Execute the API request
-			        	request.execute(function(event) {
-			            	console.log(event);
-			        	});
-			        });
+					   // Step 5: Assemble the API request
+						console.log("loading client");
+						var request = gapi.client.calendar.events.insert({
+							'calendarId': 'primary',
+							'resource': JSON.stringify(payload)
+						});
+						// Step 6: Execute the API request
+						request.execute(function(event) {
+							console.log(event);
+						});
+					});
 				}
-				/*
-				payload = {}
-				var json = JSON.stringify(payload);
-				$.ajax({
-					type: "POST",
-					url: 'https://outlook.office.com/api/v2.0/me/events',
-					headers: {'Authorization': 'Bearer ' + token,
-							  'Content-Type': 'application/json',
-							 },
-					data: json,
-					'error': function(jqXHR, textStatus, errorThrown) {
-						console.log(jqXHR)
-					},
-					'success': function(res) {
-						console.log(res);
-						alert("success");
-					}	
-				});*/
 				console.log("printing out " + this.state.listOfEvents[i]);
 			}
 			this.removeAllAddedEvent();
@@ -161,22 +167,22 @@ var Container = React.createClass ({
 			alert("Please add an event to your list")
 		}
 	},
-    render: function() {
-        return (
-        	<div classNa="load-container">
-	            {/*<Header />*/}
-	            <LeftCol events={this.state.events} 
-	            		 remove={this.remove} 
-	            		 newQuery={this.newQuery} 
-	            		 addEvent={this.addEvent}
-	            		 giveLink={this.giveLink} />
-	            <RightCol 
-	            		listOfEvents={this.state.listOfEvents} 
-	            		addToCalendar={this.addToCalendar}
-	            		giveLink={this.giveLink}/>
-	        </div>
-        )
-    }
+	render: function() {
+		return (
+			<div classNa="load-container">
+				{/*<Header />*/}
+				<LeftCol events={this.state.events} 
+						 remove={this.remove} 
+						 newQuery={this.newQuery} 
+						 addEvent={this.addEvent}
+						 giveLink={this.giveLink} />
+				<RightCol 
+						listOfEvents={this.state.listOfEvents} 
+						addToCalendar={this.addToCalendar}
+						giveLink={this.giveLink}/>
+			</div>
+		)
+	}
 });
 
 module.exports = Container;
