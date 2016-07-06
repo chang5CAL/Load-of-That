@@ -18,8 +18,6 @@ var AddedEvents = React.createClass ({
     		<div>
     			<b>Event:</b> {this.props.giveLink(this.props.event)}
     			<br />
-    			{this.props.event.url}
-                <br />
                 <b>When:</b> {startDate} - {endDate}
                 <br />
                 <b>Where:</b> {this.props.event.place.street} {this.props.event.place.city}, {this.props.event.place.state}
