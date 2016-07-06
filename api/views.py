@@ -43,7 +43,7 @@ def index(request):
 	state = request.GET.get("state")
 	country = request.GET.get("country")
 	r_type = request.GET.get("type")
-	if(or city == None or state == None
+	if(city == None or state == None
 		or country == None or r_type == None):
 		return HttpResponse(status=404)
 	idnum = 1000000
@@ -164,7 +164,7 @@ def meetup(request):
 	country = request.GET.get("country")
 	r_type = request.GET.get("type")
 
-	if(or city == None or state == None
+	if(city == None or state == None
 		or country == None or r_type == None):
 		return HttpResponse(status=404)
 	header = {
@@ -315,7 +315,7 @@ def eventbrite_call(request):
 	state = request.GET.get("state")
 	country = request.GET.get("country")
 	r_type = request.GET.get("type")
-	if(or city == None or state == None
+	if(city == None or state == None
 		or country == None or r_type == None):
 		return HttpResponse(status=404)
 
