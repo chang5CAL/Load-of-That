@@ -12,41 +12,60 @@ var Container = React.createClass ({
 		return {
 			// TODO change from list to a dictionary of key: object 
 			events: [
-					 {id: 1, title: "Gameworks", url:"http://gameworks.com", image: "http://www.newportonthelevee.com/Portals/newportonthelevee/Images/Directory/Gameworks.png"}, 
-					 {id: 2, title: "Dave and Busters", url: "http://www.daveandbusters.com/", image: "http://www.daveandbusters.com/media/1023/logo_no_shadow.png"}, 
-					 {id: 3, title: "Disney Land", url: "https://disneyland.disney.go.com/", image: "https://s-media-cache-ak0.pinimg.com/236x/e0/71/0d/e0710d8c6cf4c5b707fd55375e9c740c.jpg"},
+					 {name: "Gameworks", description: "", start_time: "", end_time: "", url:"http://gameworks.com", image: "http://www.newportonthelevee.com/Portals/newportonthelevee/Images/Directory/Gameworks.png"}, 
+					 {name: "Dave and Busters", description: "", start_time: "", end_time: "", url: "http://www.daveandbusters.com/", image: "http://www.daveandbusters.com/media/1023/logo_no_shadow.png"}, 
+					 {name: "Disney Land", description: "", start_time: "", end_time: "", url: "https://disneyland.disney.go.com/", image: "https://s-media-cache-ak0.pinimg.com/236x/e0/71/0d/e0710d8c6cf4c5b707fd55375e9c740c.jpg"},
 					],
 			listOfEvents: []
 		};
 	},
-	remove: function(eventId) {
+	remove: function(eventName) {
 		//e.preventDefault();
-		console.log(eventId);
 		var newEvents = this.state.events.filter(function(event) {
-			return event.id !== eventId 
+			return event.name !== eventName
 		});
 		this.setState({
 			events: newEvents, 
 		});
 	},
-	newQuery: function(city, state, country, type) {
+	ajaxCall: function(url) {
 		$.ajax({
-			url: "/api/eventbrite_call",
+			url: "/api/" + url,
 			method: "GET",
 			dataType: "json",
 			success: function(result) {
 				console.log("success");
 				console.log(result);
+				this.setState({
+					events: this.state.events.concat([result]),
+				});
 			},
 			error: function(err, res, ros) {
 				console.log(res);
 			}
-		})
+		});
+	},
+	newQuery: function(city, state, country, type) {
+		/*if (!document.getElementById("facebook-login")) {
+			this.ajaxCall("");
+		}
+
+		if (!document.getElementById("eventbrite-login")) {
+			this.ajaxCall("eventbrite_call")
+		}*/
+
+		this.ajaxCall("meetup")
 		var newEvents = [
-			{id: 4, title: "Tokyo", url:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png", image:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png"}, 
-			{id: 5, title: "United States", url: "https://www.usa.gov/about-the-us", image: "http://i.infopls.com/images/states_imgmap.gif"}, 
-			{id: 6, title: "Spain", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
-		    {id: 7, title: "Spain", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
+			{	
+				name: "Tokyo", 
+				description: "", 
+				start_time: "", 
+				end_time: "", 
+				url:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.pnghttps://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png", 
+				image:"https://pbs.twimg.com/profile_images/575521516399423488/ELY3fVCn.png"}, 
+			{name: "United States", description: "", start_time: "", end_time: "", url: "https://www.usa.gov/about-the-us", image: "http://i.infopls.com/images/states_imgmap.gif"}, 
+			{name: "Spain", description: "", start_time: "", end_time: "", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
+		    {name: "Spain2", description: "", start_time: "", end_time: "", url: "https://en.wikipedia.org/wiki/Spain", image: "http://www.bmiresearch.com/sites/default/files/Spain.png"},
 		];
 		this.setState({
 			events: newEvents,
@@ -56,7 +75,7 @@ var Container = React.createClass ({
 		this.setState({
 			listOfEvents: this.state.listOfEvents.concat([event])
 		});
-		this.remove(event.id)
+		this.remove(event.name)
 	},
 	removeAllAddedEvent: function() {
 		this.setState({

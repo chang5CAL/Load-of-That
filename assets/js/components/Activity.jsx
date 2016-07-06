@@ -10,8 +10,10 @@ var style = {paddingLeft: "5px",}
 
 var Activity = React.createClass ({
 	propTypes: {
-		id: React.PropTypes.number.isRequired,
-		title: React.PropTypes.string.isRequired,
+		name: React.PropTypes.string.isRequired,
+		description: React.PropTypes.string.isRequired,
+		start_time: React.PropTypes.string.isRequired,
+		end_time: React.PropTypes.string.isRequired,
 		url: React.PropTypes.string.isRequired,
 		image: React.PropTypes.string.isRequired,
 		remove: React.PropTypes.func.isRequired,
@@ -23,11 +25,11 @@ var Activity = React.createClass ({
         	<Row className="load-activity">
 	            <Col md={5} className="activity-image-container"><img className="activity-image" src={this.props.image} /></Col>
 	            <Col md={6} className="activity-content-body">
-		            <div className="activity-title"><b>Event:</b> <a href={this.props.url}>{this.props.title}</a></div>
-		            <p className="activity-body">This is the article body that will show you how great the event will beqweqweqweqweqweqwewq eqwewq qweqwe qweqw ewqe wqeqw eqwe qwewq ewq eqwe qweqw eqwe qweqw ewqe qweqw ewqe qwe qwe qwewq eqw eqwe qwe</p>
-		            <p className="activity-date"><b>When:</b> </p>
+		            <div className="activity-title"><b>Event:</b> <a href={this.props.url}>{this.props.name}</a></div>
+		            <p className="activity-body">{this.props.description}</p>
+		            <p className="activity-date"><b>When:</b> {this.props.start_time} - {this.props.end_time}</p>
 		            <p className="activity-location"><b>Where:</b> Location</p>
-		            <Button bsStyle="danger" onClick={this.props.remove.bind(null, this.props.id)}><Glyphicon glyph="remove" /></Button>
+		            <Button bsStyle="danger" onClick={this.props.remove.bind(null, this.props.name)}><Glyphicon glyph="remove" /></Button>
 		            <Button bsStyle="success" className="activity-url" onClick={this.props.add.bind(null, this.props.event)}>Add to List</Button>
 	            </Col>
 	        </Row>

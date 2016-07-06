@@ -164,80 +164,80 @@ def meetup(request):
 	print(obj['results'][0]['duration'])
 
 	for index in obj['results']:	
-			#print(localtime(index['time']))
-			#print(index)
-			if('venue' in index and 
-				'state' in index['venue'] and
-				'duration' in index):
-				event_time_struct = localtime(index['time']/1000)
-				event_end_time_struct = localtime((index['time']+index['duration'])/1000)
-				#Meetup gives time in milliseconds from epoch, so it needs to be 
-				#divided by 1000 so it's in seconds.
+		#print(localtime(index['time']))
+		#print(index)
+		if('venue' in index and 
+			'state' in index['venue'] and
+			'duration' in index):
+			event_time_struct = localtime(index['time']/1000)
+			event_end_time_struct = localtime((index['time']+index['duration'])/1000)
+			#Meetup gives time in milliseconds from epoch, so it needs to be 
+			#divided by 1000 so it's in seconds.
 
-				#These if statements parse through event_time_struct and put it in
-				#"%Y-%m-%dT%H:%M:%S" form. It also adds a 0 if the month or day are
-				#single digit.
-				if(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday < 10):
-					#If both month and day are single digit
-					event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
-						str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
-						str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
-						":"+str(event_time_struct.tm_sec))
-				elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday < 10):
-					#If only the day is single digited
-					event_time_year_form = (str(event_time_struct.tm_year)+"-"+
-						str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
-						str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
-						":"+str(event_time_struct.tm_sec))
-				elif(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday >= 10):
-					#If only the month is single digited
-					event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
-						str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
-						str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
-						":"+str(event_time_struct.tm_sec))
-				elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday >= 10):
-					#If neither the month nor the day is single digited.
-					event_time_year_form = (str(event_time_struct.tm_year)+"-"+
-						str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
-						str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
-						":"+str(event_time_struct.tm_sec))
+			#These if statements parse through event_time_struct and put it in
+			#"%Y-%m-%dT%H:%M:%S" form. It also adds a 0 if the month or day are
+			#single digit.
+			if(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday < 10):
+				#If both month and day are single digit
+				event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
+					str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
+					str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+					":"+str(event_time_struct.tm_sec))
+			elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday < 10):
+				#If only the day is single digited
+				event_time_year_form = (str(event_time_struct.tm_year)+"-"+
+					str(event_time_struct.tm_mon)+"-0"+str(event_time_struct.tm_mday)+"T"+
+					str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+					":"+str(event_time_struct.tm_sec))
+			elif(event_time_struct.tm_mon < 10 and event_time_struct.tm_mday >= 10):
+				#If only the month is single digited
+				event_time_year_form = (str(event_time_struct.tm_year)+"-0"+
+					str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
+					str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+					":"+str(event_time_struct.tm_sec))
+			elif(event_time_struct.tm_mon >= 10 and event_time_struct.tm_mday >= 10):
+				#If neither the month nor the day is single digited.
+				event_time_year_form = (str(event_time_struct.tm_year)+"-"+
+					str(event_time_struct.tm_mon)+"-"+str(event_time_struct.tm_mday)+"T"+
+					str(event_time_struct.tm_hour)+":"+str(event_time_struct.tm_min)+
+					":"+str(event_time_struct.tm_sec))
 
-				#This one is for the end time.
-				if(event_end_time_struct.tm_mon < 10 and event_end_time_struct.tm_mday < 10):
-					#If both month and day are single digit
-					event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-0"+
-						str(event_end_time_struct.tm_mon)+"-0"+str(event_end_time_struct.tm_mday)+"T"+
-						str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
-						":"+str(event_end_time_struct.tm_sec))
-				elif(event_end_time_struct.tm_mon >= 10 and event_end_time_struct.tm_mday < 10):
-					#If only the day is single digited
-					event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-"+
-						str(event_end_time_struct.tm_mon)+"-0"+str(event_end_time_struct.tm_mday)+"T"+
-						str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
-						":"+str(event_end_time_struct.tm_sec))
-				elif(event_end_time_struct.tm_mon < 10 and event_end_time_struct.tm_mday >= 10):
-					#If only the month is single digited
-					event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-0"+
-						str(event_end_time_struct.tm_mon)+"-"+str(event_end_time_struct.tm_mday)+"T"+
-						str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
-						":"+str(event_end_time_struct.tm_sec))
-				elif(event_end_time_struct.tm_mon >= 10 and event_end_time_struct.tm_mday >= 10):
-					#If neither the month nor the day is single digited.
-					event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-"+
-						str(event_end_time_struct.tm_mon)+"-"+str(event_end_time_struct.tm_mday)+"T"+
-						str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
-						":"+str(event_end_time_struct.tm_sec))
-				#Note for later: The hour might need a 0 too, but it's not causing a problem yet.
-				
-				event_time_object = datetime.strptime(event_time_year_form, "%Y-%m-%dT%H:%M:%S")
-				event_end_time_object = datetime.strptime(event_end_time_year_form, "%Y-%m-%dT%H:%M:%S")
+			#This one is for the end time.
+			if(event_end_time_struct.tm_mon < 10 and event_end_time_struct.tm_mday < 10):
+				#If both month and day are single digit
+				event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-0"+
+					str(event_end_time_struct.tm_mon)+"-0"+str(event_end_time_struct.tm_mday)+"T"+
+					str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
+					":"+str(event_end_time_struct.tm_sec))
+			elif(event_end_time_struct.tm_mon >= 10 and event_end_time_struct.tm_mday < 10):
+				#If only the day is single digited
+				event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-"+
+					str(event_end_time_struct.tm_mon)+"-0"+str(event_end_time_struct.tm_mday)+"T"+
+					str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
+					":"+str(event_end_time_struct.tm_sec))
+			elif(event_end_time_struct.tm_mon < 10 and event_end_time_struct.tm_mday >= 10):
+				#If only the month is single digited
+				event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-0"+
+					str(event_end_time_struct.tm_mon)+"-"+str(event_end_time_struct.tm_mday)+"T"+
+					str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
+					":"+str(event_end_time_struct.tm_sec))
+			elif(event_end_time_struct.tm_mon >= 10 and event_end_time_struct.tm_mday >= 10):
+				#If neither the month nor the day is single digited.
+				event_end_time_year_form = (str(event_end_time_struct.tm_year)+"-"+
+					str(event_end_time_struct.tm_mon)+"-"+str(event_end_time_struct.tm_mday)+"T"+
+					str(event_end_time_struct.tm_hour)+":"+str(event_end_time_struct.tm_min)+
+					":"+str(event_end_time_struct.tm_sec))
+			#Note for later: The hour might need a 0 too, but it's not causing a problem yet.
 			
-				#print(index['title'])
-				#print(index['description'])
-				event_info = dict()
-				event_info['name'] = index['name']
-				if 'description' in index:
-					event_info['description'] = index['description']
+			event_time_object = datetime.strptime(event_time_year_form, "%Y-%m-%dT%H:%M:%S")
+			event_end_time_object = datetime.strptime(event_end_time_year_form, "%Y-%m-%dT%H:%M:%S")
+		
+			#print(index['title'])
+			#print(index['description'])
+			event_info = dict()
+			event_info['name'] = index['name']
+			if 'description' in index:
+				event_info['description'] = index['description']
 				event_info['start_time'] = event_time_object
 				event_info['end_time'] = event_end_time_object
 				event_info['place'] = dict()
@@ -250,8 +250,6 @@ def meetup(request):
 					event_info['image'] = index["event_hosts"]['photo']['photo_link']
 				event_info['source'] = 'Meetup'
 				event_list.append(event_info)
-				#rest_get = Facebook(name=event_info['name'])
-
 				#rest_get = Facebook(name=event_info['name'])
 	#rest_get = Facebook(name='name123445435q23tet24t')
 	#rest_get.save()

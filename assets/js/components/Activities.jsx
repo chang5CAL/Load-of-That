@@ -22,9 +22,11 @@ var Activities = React.createClass ({
     		if (event.image != "") {
     			image_url = event.image;
     		}
-        	return (<div key={event.id}><Activity 
-        					 id={event.id}
-        					 title={event.title} 
+        	return (<div key={event.name}><Activity 
+        					 name={event.name}
+                             description={event.description}
+                             start_time={event.start_time}
+                             end_time={event.end_time} 
         					 url={event.url} 
         					 image={event.image}
         					 remove={this.props.remove}
