@@ -7,7 +7,7 @@ var AddedEvents = React.createClass ({
     render: function() {
         return (
     		<div>
-    			<b>Event:</b> {this.props.event.title}
+    			<b>Event:</b> {this.props.event.name}
     			<br />
     			{this.props.event.url}
                 <br />

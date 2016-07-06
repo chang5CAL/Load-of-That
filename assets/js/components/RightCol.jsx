@@ -54,7 +54,7 @@ var RightCol = React.createClass ({
     render: function() {
     	var listEvents = this.props.listOfEvents.map(function(event) {
         	return (
-        		<div key={event.id}>
+        		<div key={event.name}>
 	        		<AddedEvents event={event} />
 	        	</div>
         	);

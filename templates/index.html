@@ -59,14 +59,14 @@
 
         	{% if not is_authenticated %}
 			<div class="socialaccount_ballot">
-				<a title="Facebook" class="btn btn-social btn-facebook" href="/accounts/facebook/login/?process=login"><span class="fa fa-facebook"></span>Login with Facebook</a>
+				<a title="Facebook" id="facebook-login" class="btn btn-social btn-facebook" href="/accounts/facebook/login/?process=login"><span class="fa fa-facebook"></span>Login with Facebook</a>
 			</div>
 			{% endif %}
 
 			{% if eventbrite_access_token %}
 				{{eventbrite_access_token}}
 			{% else %}
-			<a title="Eventbrite" href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=BVSGCXUYLLFDSPVC5H&redirect_uri=http://localhost:8000/api/eventbrite">Eventbrite</a>
+			<a id="eventbrite-login" title="Eventbrite" href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=BVSGCXUYLLFDSPVC5H&redirect_uri=http://localhost:8000/api/eventbrite">Eventbrite</a>
 			{% endif %}
 
 			<input id="logged_in" type="hidden" value="{{has_calendar}}">
