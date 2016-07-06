@@ -160,8 +160,6 @@ def meetup(request):
 	r = requests.get("https://api.meetup.com/2/open_events", params=body)
 	#print(r.content)
 	obj = r.json()
-	print(obj['results'][0].keys())
-	print(obj['results'][0]['duration'])
 
 	for index in obj['results']:	
 		#print(localtime(index['time']))
