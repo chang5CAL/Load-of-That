@@ -245,7 +245,9 @@ def meetup(request):
 				event_info['place']['city'] = index['venue']['city']
 				event_info['place']['street'] = index['venue']['address_1']
 				event_info['url'] = index['event_url']
-				event_info['image'] = ""
+				if('event_hosts' in index and 'photo' in index['event_hosts']
+					and 'photo_link' in index['event_hosts']['photo']):
+					event_info['image'] = index["event_hosts"]['photo']['photo_link']
 				event_info['source'] = 'Meetup'
 				event_list.append(event_info)
 				#rest_get = Facebook(name=event_info['name'])
