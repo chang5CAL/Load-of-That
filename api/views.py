@@ -47,14 +47,18 @@ def index(request):
 		or country == None or r_type == None):
 		return HttpResponse(status=404)
 	idnum = 1000000
-	
+
 	print(request.user.is_authenticated())
 	if request.user.is_authenticated():
 		token = SocialToken.objects.filter(account__user=request.user, account__provider='facebook')
 		print(token[0])
-		json_token = {'access_token': token[0]}
+		body = {
+			"type":event,
+			"q": city+r_type,
+			"access_token":token[0],
+		}
 		#request_string = 'https://graph.facebook.com/search?q=portland&type=event&access_token=' + str(token[0])
-		r = requests.get('https://graph.facebook.com/search?q=portland&type=event',params=json_token)
+		r = requests.get('https://graph.facebook.com/search',params=body)
 		#r = requests.get(request_string)
 		obj = json.loads(r.text)
 
@@ -159,7 +163,7 @@ def meetup(request):
 	state = request.GET.get("state")
 	country = request.GET.get("country")
 	r_type = request.GET.get("type")
-	
+
 	if(or city == None or state == None
 		or country == None or r_type == None):
 		return HttpResponse(status=404)
@@ -170,7 +174,7 @@ def meetup(request):
 		"key": "745135362b44194320532523f1b6321",
 		#"city": "seattle",
 		"set": "true",
-		"zip": "98105",
+		#"zip": "98105",
 		"country": country,
 		"city": city,
 		"state": state,
