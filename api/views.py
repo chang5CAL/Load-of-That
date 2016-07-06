@@ -53,8 +53,8 @@ def index(request):
 		token = SocialToken.objects.filter(account__user=request.user, account__provider='facebook')
 		print(token[0])
 		body = {
-			"type":event,
-			"q": city+r_type,
+			"type":"event",
+			"q": city+" "+r_type,
 			"access_token":token[0],
 		}
 		#request_string = 'https://graph.facebook.com/search?q=portland&type=event&access_token=' + str(token[0])
@@ -185,7 +185,7 @@ def meetup(request):
 	#print(r.content)
 	obj = r.json()
 
-	for index in obj['results']:	
+	for index in obj['results']:
 		#print(localtime(index['time']))
 		#print(index)
 		if('venue' in index and 
@@ -289,8 +289,7 @@ def meetup(request):
 def eventbrite(request):
 	token = request.GET.get("code")
 	print(token)
-	if(token == None""" or city == None or state == None
-		or country == None or r_type == None"""):
+	if(token == None):
 		return HttpResponse(status=404)
 	payload = {
 		'client_id': 'BVSGCXUYLLFDSPVC5H',
@@ -339,7 +338,7 @@ def eventbrite_call(request):
 			obj = r.json()
 			#print(obj['events'][0].keys())
 			#print(obj['events'][0]['venue_id'])
-			print(obj['events'][0].keys())
+			#print(obj['events'][0].keys())
 			for index in obj['events']:
 				v_payload = {
 					'token' : access_token,
