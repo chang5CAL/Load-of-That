@@ -300,6 +300,7 @@ def eventbrite_call(request):
 			obj = r.json()
 			#print(obj['events'][0].keys())
 			#print(obj['events'][0]['venue_id'])
+			print(obj['events'][0].keys())
 			for index in obj['events']:
 				v_payload = {
 					'token' : access_token,
@@ -308,13 +309,16 @@ def eventbrite_call(request):
 				#Need to request venue in order to get place information from eventbrite.
 				v_obj = v.json()
 
+				i = requests.get('https://www.eventbriteapi.com/v3/media/' + index['logo_id'], params=v_payload)
+				i_obj = i.json()
+
 				event_info = dict()
 				event_info['name'] = index['name']['text']
 				event_info['description'] = index['description']['text']
 				event_info['start_time'] = datetime.strptime(index['start']['utc'], "%Y-%m-%dT%H:%M:%SZ")
 				event_info['end_time'] = datetime.strptime(index['end']['utc'], "%Y-%m-%dT%H:%M:%SZ")
 				event_info['url'] = ""
-				event_info['image'] = ""
+				event_info['image'] = i_obj['url']
 				event_info['place'] = dict()
 				event_info['place']['state'] = v_obj['address']['region']
 				event_info['place']['city'] = v_obj['address']['city']
