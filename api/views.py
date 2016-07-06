@@ -39,6 +39,13 @@ def index(request):
 	# template = loader.get_template('templates/test.html')
 	event_list = []
 
+	city = request.GET.get("city")
+	state = request.GET.get("state")
+	country = request.GET.get("country")
+	r_type = request.GET.get("type")
+	if(or city == None or state == None
+		or country == None or r_type == None):
+		return HttpResponse(status=404)
 	idnum = 1000000
 	
 	print(request.user.is_authenticated())
@@ -148,17 +155,25 @@ def google(request):
 def meetup(request):
 
 	idnum = 2000000
+	city = request.GET.get("city")
+	state = request.GET.get("state")
+	country = request.GET.get("country")
+	r_type = request.GET.get("type")
+	
+	if(or city == None or state == None
+		or country == None or r_type == None):
+		return HttpResponse(status=404)
 	header = {
 		"Authorization": "Bearer " + "745135362b44194320532523f1b6321", 
 	}
 	body = {
 		"key": "745135362b44194320532523f1b6321",
-		"city": "seattle",
+		#"city": "seattle",
 		"set": "true",
 		"zip": "98105",
-		"country": "us",
-		"city": "seattle",
-		"state": "wa",
+		"country": country,
+		"city": city,
+		"state": state,
 		"page": 20,
 	}
 	rest_get = None
@@ -269,15 +284,16 @@ def meetup(request):
 
 
 def eventbrite(request):
-	token = request.GET["code"]
-
+	token = request.GET.get("code")
 	print(token)
+	if(token == None""" or city == None or state == None
+		or country == None or r_type == None"""):
+		return HttpResponse(status=404)
 	payload = {
 		'client_id': 'BVSGCXUYLLFDSPVC5H',
 		'client_secret': 'XW5EU3SVRX3MHGDB3Q4OONQMVJRUVPVHLXMLACS3GCJILH3MNY',
 		'code': token,
 		'grant_type': 'authorization_code',
-		#'query':,
 	}
 	
 	r = requests.post('https://www.eventbrite.com/oauth/token', data=payload)
@@ -291,6 +307,14 @@ def eventbrite(request):
 def eventbrite_call(request):
 	event_list = []
 	idnum = 3000000
+	city = request.GET.get("city")
+	state = request.GET.get("state")
+	country = request.GET.get("country")
+	r_type = request.GET.get("type")
+	if(or city == None or state == None
+		or country == None or r_type == None):
+		return HttpResponse(status=404)
+
 	print(request.session.get('eventbrite_time'))
 	if (request.session.get('eventbrite_time')):
 		time = request.session['eventbrite_time']
@@ -302,9 +326,10 @@ def eventbrite_call(request):
 			print (access_token)
 			payload = {
 				'token': access_token,
-				'q': "coding",
-				'venue.city': "seattle",
-				'venue.region': 'WA',
+				'q': r_type,
+				'venue.city': city,
+				'venue.region': state,
+				'venue.country': country,
 				}
 			r = requests.get('https://www.eventbriteapi.com/v3/events/search/', params=payload)
 			#print (r.content)
