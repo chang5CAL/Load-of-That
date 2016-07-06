@@ -38,6 +38,8 @@ class FacebookDetail():
 def index(request):
 	# template = loader.get_template('templates/test.html')
 	event_list = []
+
+	idnum = 1000000
 	
 	print(request.user.is_authenticated())
 	if request.user.is_authenticated():
@@ -69,6 +71,8 @@ def index(request):
 				event_info['place']['city'] = (index['place']['location']['city'])
 				event_info['place']['street'] = (index['place']['location']['street'])
 				event_info['source'] = ('Facebook')
+				event_info['id'] = idnum
+				idnum += 1
 				event_list.append(event_info)
 		
 		
@@ -142,6 +146,8 @@ def google(request):
 	return HttpResponseRedirect("/")
 
 def meetup(request):
+
+	idnum = 2000000
 	header = {
 		"Authorization": "Bearer " + "745135362b44194320532523f1b6321", 
 	}
@@ -249,6 +255,8 @@ def meetup(request):
 				else:
 					event_info['image'] = ""
 				event_info['source'] = 'Meetup'
+				event_info['id'] = idnum
+				idnum += 1
 				event_list.append(event_info)
 				#rest_get = Facebook(name=event_info['name'])
 	#rest_get = Facebook(name='name123445435q23tet24t')
@@ -262,12 +270,14 @@ def meetup(request):
 
 def eventbrite(request):
 	token = request.GET["code"]
+
 	print(token)
 	payload = {
 		'client_id': 'BVSGCXUYLLFDSPVC5H',
 		'client_secret': 'XW5EU3SVRX3MHGDB3Q4OONQMVJRUVPVHLXMLACS3GCJILH3MNY',
 		'code': token,
 		'grant_type': 'authorization_code',
+		#'query':,
 	}
 	
 	r = requests.post('https://www.eventbrite.com/oauth/token', data=payload)
@@ -280,6 +290,7 @@ def eventbrite(request):
 
 def eventbrite_call(request):
 	event_list = []
+	idnum = 3000000
 	print(request.session.get('eventbrite_time'))
 	if (request.session.get('eventbrite_time')):
 		time = request.session['eventbrite_time']
@@ -324,6 +335,8 @@ def eventbrite_call(request):
 				event_info['place']['city'] = v_obj['address']['city']
 				event_info['place']['street'] = v_obj['address']['address_1']
 				event_info['source'] = 'Eventbrite'
+				event_info['id'] = idnum
+				idnum += 1
 				event_list.append(event_info)
 		else:
 			print("deleted sad face")
@@ -332,3 +345,4 @@ def eventbrite_call(request):
 			del request.session['eventbrite_access_token']
 
 	return JSONResponse(event_list)
+
