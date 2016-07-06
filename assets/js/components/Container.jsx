@@ -104,23 +104,23 @@ var Container = React.createClass ({
 
 
 			for (var i = 0; i < this.state.listOfEvents.length; i++) {
-				var payload = {
-					'summary': 'Google I/O 2015',
-					'location': '800 Howard St., San Francisco, CA 94103',
-					'description': 'A chance to hear more about Google\'s developer products.',
-					'start': {
-						'dateTime': '2016-07-28T09:00:00-07:00',
-						'timeZone': 'America/Los_Angeles'
-					},
-					'end': {
-						'dateTime': '2016-07-28T17:00:00-07:00',
-						'timeZone': 'America/Los_Angeles'
-					},
-				};
+				var payload = {};
+
 				event = this.state.listOfEvents[i];
 
 				if (type == "Outlook") {
-					console.log("Outlook");
+					// setting up the event for Outlook Calendar
+					payload["Subject"] = event.name;
+					payload['Body'] = {};
+					payload['Body']['ContentType'] = "Text";
+					payload['Body']['Content'] = jQuery(event.description).text();
+					payload['Start'] = {};
+					payload['Start']['DateTime'] = event.start_time;
+					payload['Start']['TimeZone'] = 'America/Los_Angeles';
+					payload['End'] = {};
+					payload['End']['DateTime'] = event.end_time;
+					payload['End']['TimeZone'] = 'America/Los_Angeles';
+
 					$.ajax({
 						type: "POST",
 						url: 'https://outlook.office.com/api/v2.0/me/events',
@@ -133,10 +133,10 @@ var Container = React.createClass ({
 						},
 						'success': function(res) {
 							console.log(res);
-							alert("success");
 						}	
 					});
 				} else if (type == "Google Calendar") {
+					// setting up the event for Google Calendar
 					payload["summary"] = event.name;
 					payload['location'] = event.place.street + ", " + event.place.city + ", " + event.place.state
 					payload['description'] = jQuery(event.description).text();

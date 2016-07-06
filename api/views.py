@@ -95,14 +95,13 @@ def test(request):
 			  }
 	r = requests.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', data=payload)
 	obj = r.json()
-	access_token = obj['outlook_access_token']
+	access_token = obj['access_token']
 	print(access_token)
 	request.session['outlook_access_token'] = access_token
 	request.session['outlook_time'] = str(datetime.now())
 	request.session['email_type'] = "Outlook"
 	
-	#return HttpResponseRedirect("/")
-	return render(request, 'api/play.html')
+	return HttpResponseRedirect("/")
 
 def play(request):
 	return render(request, 'api/play.html')
