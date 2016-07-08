@@ -61,7 +61,8 @@ INSTALLED_APPS = (
 
     #for rest-framework
     'rest_framework',
-    'api.apps.FacebookConfig'
+    'api.apps.FacebookConfig',
+
 )
 
 MIDDLEWARE_CLASSES = (
