@@ -12,7 +12,7 @@ class APIResponseTest(unittest.TestCase):
 	def testagain(self):
 		self.assertTrue(True)
 	def testNew(self):
-		self.assertTrue(True)
+		self.assertFalse(False)
 
 if __name__ == '__main__':
     unittest.main()
