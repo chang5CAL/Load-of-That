@@ -63,7 +63,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'api.apps.FacebookConfig',
 
-    'api',
 )
 
 MIDDLEWARE_CLASSES = (
