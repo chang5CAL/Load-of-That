@@ -89,7 +89,9 @@ AUTHENTICATION_BACKENDS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,6 +149,8 @@ STATICFILES_DIRS = (
     #This lets Django's collectstatic store our bundles
     os.path.join(BASE_DIR, 'assets'), 
 )
+
+STATIC_ROOT = '/home/load/Load-Of-That/static/'
 
 WEBPACK_LOADER = {
     'DEFAULT': {
