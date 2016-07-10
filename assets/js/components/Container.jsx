@@ -142,9 +142,11 @@ var Container = React.createClass ({
 					});
 				} else if (type == "Google Calendar") {
 					// setting up the event for Google Calendar
+					var word = jQuery(event.description).text();
+					word = word.replace('"', '\"');
 					payload["summary"] = event.name;
 					payload['location'] = event.place.street + ", " + event.place.city + ", " + event.place.state
-					payload['description'] = jQuery(event.description).text();
+					payload['description'] = word;
 					payload['start'] = {};
 					payload['start']['dateTime'] = event.start_time;
 					payload['start']['timeZone'] = 'America/Los_Angeles'
