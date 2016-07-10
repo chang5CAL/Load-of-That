@@ -21,7 +21,7 @@ class APIResponseTest(unittest.TestCase):
 		else:
 			self.assertTrue(False)
 	def test_EventBrite(self):
-		if(requests.get('http://localhost:8000/api/eventbrite_call/?city=seattle&type=event&state=WA&country=US') != HttpResponse(status=404)):
+		if(requests.get('http://localhost:8000/api/eventbrite_call/?city=seattle&type=coding&state=WA&country=US') != HttpResponse(status=404)):
 			self.assertTrue(True)
 		else:
 			self.assertTrue(False)
