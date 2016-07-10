@@ -47,7 +47,7 @@ def index(request):
 		or country == None or r_type == None):
 		return HttpResponse(status=404)
 	idnum = 1000000
-
+              
 	print(request.user.is_authenticated())
 	if request.user.is_authenticated():
 		token = SocialToken.objects.filter(account__user=request.user, account__provider='facebook')
@@ -324,6 +324,8 @@ def eventbrite_call(request):
 		dt = dt + timedelta(hours=1)
 		if (datetime.now() < dt):
 			# access token still alive, make the api call
+			#print ('access_token\n')
+
 			access_token = request.session['eventbrite_access_token']
 			print (access_token)
 			payload = {
@@ -347,8 +349,9 @@ def eventbrite_call(request):
 				#Need to request venue in order to get place information from eventbrite.
 				v_obj = v.json()
 
-				i = requests.get('https://www.eventbriteapi.com/v3/media/' + index['logo_id'], params=v_payload)
-				i_obj = i.json()
+				if ('logo_id' in index):
+					i = requests.get('https://www.eventbriteapi.com/v3/media/' + index['logo_id'], params=v_payload)
+					i_obj = i.json()
 
 				event_info = dict()
 				event_info['name'] = index['name']['text']
