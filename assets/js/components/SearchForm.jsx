@@ -16,7 +16,7 @@ var SearchForm = React.createClass ({
 		return {
 			city: "",
 			state: "",
-			country: "",
+			country: "US",
 			type: "",
 
 		};

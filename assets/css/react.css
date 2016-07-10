@@ -120,6 +120,10 @@ LEFT COLUMN CSS
 	overflow-x: hidden;
 }
 
+.event-login-container {
+	padding-left: 10px;
+}
+
 /*
 
 SEARCH FORM
