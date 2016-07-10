@@ -14,7 +14,6 @@ class APIResponseTest(unittest.TestCase):
 		if(requests.get('http://localhost:8000/api/?city=seattle&type=coding&state=WA&country=US') != HttpResponse(status=404)):
 			self.assertTrue(True)
 		else:
-			print("Test")
 			self.assertTrue(False)
 	def test_Meetup(self):
 		if(requests.get('http://localhost:8000/api/meetup/?city=seattle&type=coding&state=WA&country=US') != HttpResponse(status=404)):
