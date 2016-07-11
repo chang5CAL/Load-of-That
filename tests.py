@@ -10,17 +10,17 @@ from django.http import HttpResponse
 
 # Create your tests here.
 class APIResponseTest(unittest.TestCase):
-	def test_Facebook(self):
+	def test_Facebook_Connection(self):
 		if(requests.get('http://localhost:8000/api/?city=seattle&type=coding&state=WA&country=US') != HttpResponse(status=404)):
 			self.assertTrue(True)
 		else:
 			self.assertTrue(False)
-	def test_Meetup(self):
+	def test_Meetup_Connection(self):
 		if(requests.get('http://localhost:8000/api/meetup/?city=seattle&type=coding&state=WA&country=US') != HttpResponse(status=404)):
 			self.assertTrue(True)
 		else:
 			self.assertTrue(False)
-	def test_EventBrite(self):
+	def test_EventBrite_Connection(self):
 		if(requests.get('http://localhost:8000/api/eventbrite_call/?city=seattle&type=coding&state=WA&country=US') != HttpResponse(status=404)):
 			self.assertTrue(True)
 		else:
