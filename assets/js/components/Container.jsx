@@ -26,7 +26,8 @@ var Container = React.createClass ({
 	},
 	ajaxCall: function(url, json) {
 		var _this = this;
-		console.log("called query");
+		console.log("called " + url);
+		console.log(json);
 		$.ajax({
 			url: "/api/" + url,
 			method: "GET",
@@ -49,21 +50,22 @@ var Container = React.createClass ({
 			events: [],
 		})
 		var request_data = {
-			city: city,
-			state: state,
-			country: country,
-			type: type,
+			"city": city,
+			"state": state,
+			"country": country,
+			"type": type,
 		}
-		json = JSON.stringify(request_data)
 		if (!document.getElementById("facebook-login")) {
-			this.ajaxCall("", json);
+			console.log("facebook");
+			this.ajaxCall("", request_data);
 		}
 		
 		if (!document.getElementById("eventbrite-login")) {
-			this.ajaxCall("eventbrite_call", json);
+			console.log("eventbrite");
+			this.ajaxCall("eventbrite_call", request_data);
 		}
-
-		this.ajaxCall("meetup", json);
+		console.log("meetup");
+		this.ajaxCall("meetup", request_data);
 		/*var newEvents = [
 			{	
 				name: "Tokyo", 
@@ -105,9 +107,6 @@ var Container = React.createClass ({
 				token = document.getElementById("a-t").value	
 			}
 			var type = document.getElementById('email_type').value.replace("_", " ");
-			console.log(type);
-			console.log("add to calendar called");
-
 
 			for (var i = 0; i < this.state.listOfEvents.length; i++) {
 				var payload = {};
@@ -143,9 +142,11 @@ var Container = React.createClass ({
 					});
 				} else if (type == "Google Calendar") {
 					// setting up the event for Google Calendar
+					var word = jQuery(event.description).text();
+					word = word.replace('"', '\"');
 					payload["summary"] = event.name;
 					payload['location'] = event.place.street + ", " + event.place.city + ", " + event.place.state
-					payload['description'] = jQuery(event.description).text();
+					payload['description'] = word;
 					payload['start'] = {};
 					payload['start']['dateTime'] = event.start_time;
 					payload['start']['timeZone'] = 'America/Los_Angeles'
@@ -155,14 +156,12 @@ var Container = React.createClass ({
 
 					gapi.client.load('calendar', 'v3').then(function() {
 					   // Step 5: Assemble the API request
-						console.log("loading client");
 						var request = gapi.client.calendar.events.insert({
 							'calendarId': 'primary',
 							'resource': JSON.stringify(payload)
 						});
 						// Step 6: Execute the API request
 						request.execute(function(event) {
-							console.log(event);
 						});
 					});
 				}

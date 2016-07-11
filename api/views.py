@@ -101,7 +101,7 @@ def test(request):
 				'client_id': '003a3ad3-9d6a-493d-820e-6738c415f350',
 				'client_secret': '8q7HUa7EcTcDBD668hPbg2t',
 				'code': token
-,				'redirect_uri': 'http://localhost:8000/api/test',
+,				'redirect_uri': 'http://138.91.185.62/api/test',
 				'grant_type': 'authorization_code',
 			  }
 	r = requests.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', data=payload)
@@ -133,7 +133,7 @@ def cookie(request):
 
 # FB redirection page, to be removed
 def fb(request):
-	return render(request, 'api/index.html')
+	return HttpResponseRedirect("/")
 
 def google(request):
 	token = request.GET["code"]
@@ -142,7 +142,7 @@ def google(request):
 				'client_id': '1084307285600-c271knciittbj18tj02nornfvmangnoa.apps.googleusercontent.com',
 				'client_secret': 'PA20WEpxInePjBW5ggZQX3n1',
 				'code': token,
-				'redirect_uri': 'http://localhost:8000/api/google',
+				'redirect_uri': 'http://138.91.185.62/api/google',
 				'grant_type': 'authorization_code',
 			  }
 	r = requests.post('https://www.googleapis.com/oauth2/v4/token', data=payload)

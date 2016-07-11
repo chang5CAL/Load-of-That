@@ -15,6 +15,10 @@ OVERALL CONTAINER
 	min-height: 100%;
 }
 
+
+.event-login-container {
+	padding-left: 10px;
+}
 /*
 
 SEARCH BAR + LOGO

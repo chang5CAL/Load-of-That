@@ -89,7 +89,9 @@ AUTHENTICATION_BACKENDS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,6 +150,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'), 
 )
 
+STATIC_ROOT = '/home/load/Load-Of-That/static/'
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'bundles/',
@@ -157,4 +161,4 @@ WEBPACK_LOADER = {
 
 SITE_ID=1
 
-LOGIN_REDIRECT_URL="/api/fb"
+LOGIN_REDIRECT_URL="/"
